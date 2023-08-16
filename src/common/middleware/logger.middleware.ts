@@ -29,18 +29,16 @@ export function logger(req: Request, res: Response, next: () => any) {
   const code = res.statusCode; //响应状态码
   next();
   // 组装日志信息
-  const logFormat = ` ------------------------------------------------ 
+  const logFormat = `
+  ---------------------------------------------------
   Request original url: ${req.originalUrl}
   Method: ${req.method}
   IP: ${req.ip}
   Status code: ${code}
   Parmas: ${JSON.stringify(req.params, null, 2)}
   Query: ${JSON.stringify(req.query, null, 2)}
-  Body: ${JSON.stringify(
-    req.body,
-    null,
-    2,
-  )} \n  ------------------------------------------------ 
+  Body: ${JSON.stringify(req.body, null, 2)}
+  \n  ------------------------------------------------
 `;
   //根据状态码，进行日志类型区分
   if (code >= 500) {

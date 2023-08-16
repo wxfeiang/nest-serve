@@ -47,3 +47,5 @@ GET http://localhost:3000/v1/test
 GET http://localhost:3000/v1/err  
 
 GET http://localhost:3000/v1?name=张三&age=18
+
+GET http://localhost:3000/v1/user

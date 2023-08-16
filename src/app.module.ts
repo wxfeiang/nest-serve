@@ -9,6 +9,8 @@ import { HttpExceptionFilter } from './common/exceptions/http.exception.filter';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 import { getConfig } from './common/utils/ymlConfig';
 
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 import { UserModule } from './user/user.module';
 
 @Module({
@@ -18,6 +20,19 @@ import { UserModule } from './user/user.module';
       isGlobal: true,
       ignoreEnvFile: true,
       load: [getConfig],
+    }),
+    TypeOrmModule.forRootAsync({
+      useFactory() {
+        return {
+          ...getConfig('MYSQL_CONFIG'),
+        };
+      },
+      async dataSourceFactory(options) {
+        if (!options) {
+          throw new Error('Invalid options passed');
+        }
+        return new DataSource(options);
+      },
     }),
   ],
   controllers: [AppController],
