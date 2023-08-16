@@ -18,6 +18,7 @@ async function bootstrap() {
   });
   generateDocmment(app);
 
+  // 监听所有的请求路由，并打印日志
   app.use(logger);
 
   // 启动项目

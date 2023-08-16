@@ -44,6 +44,6 @@ GET http://localhost:3000/v1/test
 
 
 # 错误测试
-GET http://localhost:3000/v1/err
+GET http://localhost:3000/v1/err  
 
 GET http://localhost:3000/v1?name=张三&age=18

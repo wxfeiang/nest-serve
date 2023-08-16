@@ -29,7 +29,7 @@ export function logger(req: Request, res: Response, next: () => any) {
   const code = res.statusCode; //响应状态码
   next();
   // 组装日志信息
-  const logFormat = ` >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const logFormat = ` ------------------------------------------------ 
   Request original url: ${req.originalUrl}
   Method: ${req.method}
   IP: ${req.ip}
@@ -40,7 +40,7 @@ export function logger(req: Request, res: Response, next: () => any) {
     req.body,
     null,
     2,
-  )} \n  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  )} \n  ------------------------------------------------ 
 `;
   //根据状态码，进行日志类型区分
   if (code >= 500) {
