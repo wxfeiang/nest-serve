@@ -1,0 +1,49 @@
+
+GET http://47.99.93.97/api/acjson/layui
+    ?seachdata=1
+    &size=1
+    &limt=10
+# 单个#号用来标记注释
+
+POST http://47.99.93.97/api/mock/sys/login
+content-type: application/json
+
+{
+  "username": "supadmin",
+  "password": "12345677e"
+}
+
+# 单个#号用来标记注释
+
+POST http://dummy.restapiexample.com/api/v1/create 
+content-type: application/json
+
+{
+    "name":"Hendry",
+    "salary":"61888",
+    "age":"26"
+}
+
+# 单个执行
+POST http://27.154.242.142:9786/prod-api/
+content-type: application/json
+
+  {
+      "name":"Hendry",
+      "salary":"61888",
+      "age":"26"
+  }
+
+# 单个#号用来标记注释
+
+#  获取github 
+GET http://localhost:3000/v1
+
+
+GET http://localhost:3000/v1/test
+
+
+# 错误测试
+GET http://localhost:3000/v1/err
+
+GET http://localhost:3000/v1?name=张三&age=18
