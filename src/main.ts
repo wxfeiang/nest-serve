@@ -1,10 +1,11 @@
 import { VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+
 import { AppModule } from './app.module';
-import { getConfig } from './common/utils/ymlConfig';
-import { generateDocmment } from './doc';
 
 import { logger } from './common/middleware/logger.middleware';
+import { getConfig } from './common/utils/ymlConfig';
+import { generateDocmment } from './doc';
 
 declare const module: any;
 

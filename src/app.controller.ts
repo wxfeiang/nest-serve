@@ -9,11 +9,6 @@ export class AppController {
     private readonly configService: ConfigService,
   ) {}
 
-  @Get('test')
-  getHello(): string {
-    return this.appService.getHello();
-  }
-
   @Get('err')
   getErr() {
     throw new CustomException('这里是自定义异常抛出');
