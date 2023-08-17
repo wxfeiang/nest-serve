@@ -1,6 +1,7 @@
 import { VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
+import { initializeTransactionalContext } from 'typeorm-transactional';
 import { AppModule } from './app.module';
 
 import { logger } from './common/middleware/logger.middleware';
@@ -10,6 +11,9 @@ import { generateDocmment } from './doc';
 declare const module: any;
 
 async function bootstrap() {
+  // 开启事物  //TODO: 后期会处理
+  initializeTransactionalContext();
+
   const app = await NestFactory.create(AppModule);
 
   // api多版本控制

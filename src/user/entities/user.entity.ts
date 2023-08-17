@@ -18,5 +18,5 @@ export class User {
 
   @ApiProperty({ example: 'tyf' })
   @Column({ comment: '昵称' })
-  nickName: string;
+  nick_name: string;
 }

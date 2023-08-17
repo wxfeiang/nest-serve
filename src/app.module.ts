@@ -11,7 +11,9 @@ import { getConfig } from './common/utils/ymlConfig';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { UserModule } from './user/user.module';
+import { EmployeeModule } from './employee/employee.module';
 
 @Module({
   imports: [
@@ -25,6 +27,7 @@ import { UserModule } from './user/user.module';
       useFactory() {
         return {
           ...getConfig('MYSQL_CONFIG'),
+          namingStrategy: new SnakeNamingStrategy(),
         };
       },
       async dataSourceFactory(options) {
@@ -34,6 +37,7 @@ import { UserModule } from './user/user.module';
         return new DataSource(options);
       },
     }),
+    EmployeeModule,
   ],
   controllers: [AppController],
   providers: [
