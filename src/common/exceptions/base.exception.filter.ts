@@ -5,6 +5,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { dyErrorResponse } from '../utils';
 
 @Catch()
 export class BaseExceptionFilter implements ExceptionFilter {
@@ -13,11 +14,13 @@ export class BaseExceptionFilter implements ExceptionFilter {
     const response = host.switchToHttp().getResponse<Response>();
 
     // 程序异常
-    response.status(HttpStatus.SERVICE_UNAVAILABLE).send({
+    const errorData = {
       statusCode: HttpStatus.SERVICE_UNAVAILABLE,
       timestamp: new Date().toISOString(),
       path: request.url,
       message: exception.message,
-    });
+    };
+    dyErrorResponse(errorData);
+    response.status(HttpStatus.SERVICE_UNAVAILABLE).send(errorData);
   }
 }
