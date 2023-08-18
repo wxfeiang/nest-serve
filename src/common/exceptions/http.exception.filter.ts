@@ -6,8 +6,8 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { Logger } from '../logger/log4js';
 import { CustomException, TBusinessError } from './custom.exception';
-
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException, host: ArgumentsHost) {
@@ -17,20 +17,34 @@ export class HttpExceptionFilter implements ExceptionFilter {
     // 自定义异常走这个
     if (exception instanceof CustomException) {
       const { code, message } = exception.getResponse() as TBusinessError;
-      response.status(HttpStatus.OK).send({
+      const dyErrorData = {
         data: null,
         status: code,
         extra: {},
         message,
         success: false,
-      });
+      };
+      dyResponse(dyErrorData);
+      response.status(HttpStatus.OK).send(dyErrorData);
     }
     // http异常
-    response.status(HttpStatus.NOT_FOUND).send({
+    const httErrorData = {
       statusCode: HttpStatus.NOT_FOUND,
       timestamp: new Date().toISOString(),
       path: request.url,
       message: exception.getResponse(),
+    };
+
+    dyResponse(httErrorData);
+    response.status(HttpStatus.NOT_FOUND).send({
+      httErrorData,
     });
   }
 }
+
+const dyResponse = (data: any) => {
+  const logFormat = `-----------------error-------------------------
+      error: ${JSON.stringify(data, null, 2)}
+         \n------------------------------------------------ \n`;
+  Logger.error(logFormat);
+};
