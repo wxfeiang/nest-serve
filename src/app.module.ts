@@ -18,6 +18,7 @@ import { DataSource } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { EmployeeModule } from './employee/employee.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { UserModule } from './user/user.module';
       },
     }),
     EmployeeModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [

@@ -55,8 +55,8 @@ POST http://localhost:3000/v1/user
 content-type: application/json
 
 {
-  "id": 9,
-  "name": "di99",
+  "id": 6,
+  "name": "adamin",
   "passowrd": "12dd3456",
   "nick_name": "tydsdf"
 }

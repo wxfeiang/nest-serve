@@ -34,7 +34,6 @@ export class UserService {
     //   VALUES (${user.id}, ${user.name},${user.passowrd},${user.nickName})
     // `;
 
-    console.log('🍐[user]:', user);
     return this.userRepositroy.save(user);
   }
 
