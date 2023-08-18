@@ -60,3 +60,16 @@ content-type: application/json
   "passowrd": "12dd3456",
   "nick_name": "tydsdf"
 }
+
+// 查询用户 
+POST http://localhost:3000/v1/employee/login
+content-type: application/json
+
+{
+  "username": "12dd3456",
+  "passowrd": "12dd3456"
+}
+
+
+// 查询用户 
+GET http://localhost:3000/v1/employee/test

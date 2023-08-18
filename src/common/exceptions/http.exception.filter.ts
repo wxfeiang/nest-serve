@@ -22,7 +22,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
       const dyErrorData = {
         data: null,
         status: code,
-        extra: {},
         message,
         success: false,
       };

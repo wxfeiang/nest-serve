@@ -1,7 +1,11 @@
 // src/app.module.ts
-import { Module } from '@nestjs/common';
+import {
+  ClassSerializerInterceptor,
+  Module,
+  ValidationPipe,
+} from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BaseExceptionFilter } from './common/exceptions/base.exception.filter';
@@ -12,8 +16,8 @@ import { getConfig } from './common/utils/ymlConfig';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
-import { UserModule } from './user/user.module';
 import { EmployeeModule } from './employee/employee.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -42,6 +46,21 @@ import { EmployeeModule } from './employee/employee.module';
   controllers: [AppController],
   providers: [
     AppService,
+    {
+      // 管道 - 验证
+      provide: APP_PIPE,
+      useFactory: () => {
+        return new ValidationPipe({
+          transform: true, // 属性转换
+        });
+      },
+    },
+    {
+      // 序列化器 - 转换和净化数据
+      provide: APP_INTERCEPTOR,
+      useClass: ClassSerializerInterceptor,
+    },
+
     {
       // 全局拦截器
       provide: APP_INTERCEPTOR,
