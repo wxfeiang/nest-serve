@@ -2,7 +2,7 @@ import { readFileSync } from 'fs';
 import * as yaml from 'js-yaml';
 import { join } from 'path';
 
-const getEnv = () => process.env.RUNNING_ENV;
+const getEnv = () => process.env.RUNNING_ENV || 'dev';
 
 export const getConfig = (key?: string) => {
   const ymlInfo = yaml.load(
