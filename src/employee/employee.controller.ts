@@ -1,8 +1,7 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import * as md5 from 'md5';
 import { isPublic } from 'src/auth/constants';
-import { LocalAuthGuard } from 'src/auth/guard/local-auth.guard';
 import { User } from 'src/common/decorators/user.decorator';
 import { CustomException } from 'src/common/exceptions/custom.exception';
 import { AuthService } from '../auth/auth.service';
@@ -22,7 +21,6 @@ export class EmployeeController {
     summary: '员工登陆',
   })
   @isPublic()
-  @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Body() employee: Employee) {
     const { username, password } = employee;

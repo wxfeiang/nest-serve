@@ -44,7 +44,7 @@ export class TransformInterceptor<T>
         // 返回接口数据==
         return {
           data,
-          status: code,
+          code: code ?? 200,
           message: 'success',
           success: true,
         };

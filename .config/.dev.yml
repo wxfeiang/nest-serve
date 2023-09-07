@@ -6,7 +6,7 @@ HTTP:
 JWT:
   secret: secretKey
   signOptions:
-    expiresIn: 60s
+    expiresIn: 1200000s
 
  # mysql
 MYSQL_CONFIG:
