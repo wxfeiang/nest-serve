@@ -19,6 +19,7 @@ export class EmployeeController {
 
   @ApiOperation({
     summary: '员工登陆',
+    description: '登陆获取token',
   })
   @isPublic()
   @Post('login')
@@ -53,14 +54,17 @@ export class EmployeeController {
     summary: '测试接口认证',
   })
   @Get('/test')
-  test(@User() user: Pick<Employee, TIdAndUsername>) {
+  // @ApiQuery({
+  //   name: 'page',
+  // })
+  async test(@User() user: Pick<Employee, TIdAndUsername>) {
     return user;
   }
 
   @ApiOperation({
-    summary: '分页',
+    summary: '查询员工列表',
   })
-  @Get('page')
+  @Get('/list')
   page(
     @Query('page') page: number,
     @Query('pageSize') pageSize: number,

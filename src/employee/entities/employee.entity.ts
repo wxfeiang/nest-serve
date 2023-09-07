@@ -5,6 +5,8 @@ import { Column, Entity } from 'typeorm';
 export class Employee extends BaseEntity {
   @ApiProperty({
     description: '用户姓名',
+    required: true,
+    example: 'admin',
   })
   @Column({
     comment: '用户姓名',
@@ -55,6 +57,8 @@ export class Employee extends BaseEntity {
 
   @ApiProperty({
     description: '账户密码',
+    example: 'admin',
+    required: true,
   })
   @Column({
     comment: '账户密码',
