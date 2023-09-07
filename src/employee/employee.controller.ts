@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import * as md5 from 'md5';
 import { isPublic } from 'src/auth/constants';
@@ -55,5 +55,17 @@ export class EmployeeController {
   @Get('/test')
   test(@User() user: Pick<Employee, TIdAndUsername>) {
     return user;
+  }
+
+  @ApiOperation({
+    summary: '分页',
+  })
+  @Get('page')
+  page(
+    @Query('page') page: number,
+    @Query('pageSize') pageSize: number,
+    @Query('name') name?: string,
+  ) {
+    return this.employeeService.page(page, pageSize, name);
   }
 }
