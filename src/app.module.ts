@@ -13,6 +13,7 @@ import { addTransactionalDataSource } from 'typeorm-transactional';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './auth/guard/jwt-auth.guard';
+import { BaseModule } from './base/base.module';
 import { BaseExceptionFilter } from './common/exceptions/base.exception.filter';
 import { HttpExceptionFilter } from './common/exceptions/http.exception.filter';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
@@ -46,6 +47,7 @@ import { UserModule } from './user/user.module';
     }),
     EmployeeModule,
     AuthModule,
+    BaseModule,
   ],
   // controllers: [AppController],
   controllers: [],

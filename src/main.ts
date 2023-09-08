@@ -4,6 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { initializeTransactionalContext } from 'typeorm-transactional';
 import { AppModule } from './app.module';
 
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { logger } from './common/middleware/logger.middleware';
 import { getConfig } from './common/utils/ymlConfig';
 import { generateDocmment } from './doc';
@@ -14,7 +15,8 @@ async function bootstrap() {
   // 开启事物  //TODO: 后期会处理
   initializeTransactionalContext();
 
-  const app = await NestFactory.create(AppModule);
+  //为了文件上传
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   // api多版本控制
   app.enableVersioning({
@@ -22,7 +24,10 @@ async function bootstrap() {
     defaultVersion: ['1'],
   });
   generateDocmment(app);
-
+  // 开启静态文件预览
+  app.useStaticAssets('public', {
+    prefix: '/public/',
+  });
   // 监听所有的请求路由，并打印日志
   app.use(logger);
 
