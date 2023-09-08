@@ -28,23 +28,6 @@ export class EmployeeService {
    * @returns 分页
    */
   async page(page: number, pageSize: number, name = '') {
-    const sql = `
-        SELECT
-          * 
-        FROM
-          Employee 
-        WHERE
-          NAME LIKE "%${name}%" LIMIT  ${(page - 1) * pageSize},${pageSize};
-
-       `;
-    const sql2 = `
-      SELECT
-         COUNT(*) as total
-      FROM
-        Employee
-
-    `;
-
     const [employeeList, total] = await this.employeeRepository.findAndCount({
       where: {
         name: Like(`%${name}%`),
@@ -52,9 +35,7 @@ export class EmployeeService {
       skip: (page - 1) * pageSize,
       take: pageSize,
     });
-    // const employeeList = await this.employeeRepository.query(sql);
-    // const [total] = await this.employeeRepository.query(sql2);
-    console.log('🍝[total]:', total);
+
     return new BasePage(page, pageSize, total, employeeList);
   }
 }
