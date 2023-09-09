@@ -7,7 +7,6 @@ export const generateDocmment = (app: INestApplication) => {
     .setTitle('nestjs-服务开发')
     .setDescription('nestjs 开发的接口服务')
     .setVersion('1.0')
-    .addBearerAuth()
     .setExternalDoc('接口json 地址  ', '/api-json') //swagger文件 api 默认显示后面地址
     .build();
 

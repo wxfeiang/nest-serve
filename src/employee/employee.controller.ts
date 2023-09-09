@@ -1,12 +1,24 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  Res,
+} from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Response } from 'express';
 import * as md5 from 'md5';
 import { isPublic } from 'src/auth/constants';
 import { User } from 'src/common/decorators/user.decorator';
 import { CustomException } from 'src/common/exceptions/custom.exception';
+import { exportExcel } from 'src/common/utils/fileExport';
 import { AuthService } from '../auth/auth.service';
 import { TIdAndUsername } from '../types/index';
-import { EmployeeService } from './employee.service';
+import EmployeeService from './employee.service';
 import { Employee } from './entities/employee.entity';
 
 @ApiTags('员工模块')
@@ -71,5 +83,60 @@ export class EmployeeController {
     @Query('name') name?: string,
   ) {
     return this.employeeService.page(page, pageSize, name);
+  }
+
+  @ApiOperation({
+    summary: '创建员工',
+  })
+  @Post()
+  create(@Body() employee: Employee) {
+    employee.password = md5('123456'); // 创建初始密码，并对其进行md5加密
+    return this.employeeService.create(employee);
+  }
+
+  @ApiOperation({
+    summary: '根据ID查询',
+  })
+  @Get('id/:id') // 直接写id 会优先匹配到这个路径
+  findOne(@Param('id') id: string) {
+    return this.employeeService.findById(id);
+  }
+
+  @ApiOperation({
+    summary: '更新',
+  })
+  @Put()
+  update(@Body() employee: Employee) {
+    return this.employeeService.update(employee);
+  }
+
+  @ApiOperation({
+    summary: '删除,支持批量操作',
+  })
+  @Delete()
+  del(@Query('ids') ids: string[]) {
+    return this.employeeService.delete(ids);
+  }
+
+  @ApiOperation({
+    summary: '启用，禁用,支持批量操作',
+  })
+  @Post('status/:status')
+  setStatus(@Param('status') status: number, @Query('ids') ids: string[]) {
+    return this.employeeService.setStatus(ids, status);
+  }
+
+  @ApiOperation({
+    summary: '导出',
+  })
+  @Get('exporeList')
+  async exportXlsx(@Res() res: Response) {
+    const allData = await this.employeeService.findAll();
+    const buf = exportExcel(allData, '员工信息.xlsx');
+    res.set(
+      'Content-Disposition',
+      'attachment; filename=' + encodeURIComponent('员工信息.xlsx') + '',
+    );
+    res.send(buf);
   }
 }

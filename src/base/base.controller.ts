@@ -26,6 +26,10 @@ export class BaseController {
     if (!host.includes('://')) {
       host = `http://${host}`;
     }
-    return `${host}/${file.path}`;
+    const data = {
+      url: file.path,
+      base: host,
+    };
+    return data;
   }
 }

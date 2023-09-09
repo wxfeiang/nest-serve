@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
+  BeforeInsert,
+  BeforeUpdate,
   Column,
   CreateDateColumn,
   Entity,
@@ -44,7 +46,7 @@ export class BaseEntity {
   @Column({
     comment: '创建人',
   })
-  createUser: Date;
+  createUser: string;
 
   @ApiProperty({
     description: '更新人',
@@ -52,5 +54,18 @@ export class BaseEntity {
   @Column({
     comment: '更新人',
   })
-  updateUser: Date;
+  updateUser: string;
+
+  @BeforeInsert()
+  insert?() {
+    this.createTime = new Date();
+    this.createUser = process.env.id;
+  }
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  update?() {
+    this.updateTime = new Date();
+    this.updateUser = process.env.id;
+  }
 }

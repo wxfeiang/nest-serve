@@ -57,7 +57,7 @@ export class Employee extends BaseEntity {
 
   @ApiProperty({
     description: '账户密码',
-    example: 'admin',
+    example: '123456',
     required: true,
   })
   @Column({

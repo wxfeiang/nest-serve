@@ -6,8 +6,8 @@ import { AppModule } from './app.module';
 
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { logger } from './common/middleware/logger.middleware';
+import { generateDocmment } from './common/utils/doc';
 import { getConfig } from './common/utils/ymlConfig';
-import { generateDocmment } from './doc';
 
 declare const module: any;
 
