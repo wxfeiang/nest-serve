@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 import { BaseEntity } from 'src/common/database/baseEntity';
 import { Column, Entity } from 'typeorm';
@@ -75,9 +75,11 @@ export class Employee extends BaseEntity {
   })
   status: number;
 
-  @ApiProperty({
+  @ApiPropertyOptional({
+    //可选空
     description: '头像',
   })
+  //@IsNotEmpty({ message: '用户头像不能为空' })
   @Column({
     comment: '头像',
   })
