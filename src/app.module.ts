@@ -20,6 +20,7 @@ import { TransformInterceptor } from './common/interceptors/transform.intercepto
 import { getConfig } from './common/utils/ymlConfig';
 import { EmployeeModule } from './employee/employee.module';
 import { UserModule } from './user/user.module';
+import { OrganizationModule } from './organization/organization.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { UserModule } from './user/user.module';
     EmployeeModule,
     AuthModule,
     BaseModule,
+    OrganizationModule,
   ],
   // controllers: [AppController],
   controllers: [],

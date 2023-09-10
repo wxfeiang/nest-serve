@@ -13,6 +13,10 @@ export function dyErrorResponse(data: any) {
 }
 
 /**
+ * @description: 验证文件后缀，大小
+ * @param file  校验
+ */
+/**
  * 创建文件夹
  * @param filePath 文件路径
  */
@@ -47,4 +51,25 @@ export function classAssign<T extends object>(oldVal: T, newVal: T): T {
   }
 
   return oldVal;
+}
+/**
+ *
+ * @param data
+ * @returns 列表转树结构
+ */
+export function listToTree<T extends { id: string; pId: string }>(data: T[]) {
+  const obj = {};
+  data.forEach((w) => (obj[w.id] = w));
+  type TParent = T & { children?: T[] };
+  const parentList: TParent[] = [];
+  data.forEach((w) => {
+    const parent: TParent = obj[w.pId];
+    if (parent) {
+      parent.children = parent.children || [];
+      parent.children.push(w);
+    } else {
+      parentList.push(w);
+    }
+  });
+  return parentList;
 }

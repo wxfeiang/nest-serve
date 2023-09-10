@@ -30,7 +30,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     }
     // http异常
     const httErrorData = {
-      statusCode: HttpStatus.NOT_FOUND,
+      statusCode: HttpStatus.BAD_REQUEST,
       timestamp: new Date().toISOString(),
       path: request.url,
       message: exception.getResponse(),

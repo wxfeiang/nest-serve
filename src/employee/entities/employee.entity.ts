@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { IsNotEmpty } from 'class-validator';
 import { BaseEntity } from 'src/common/database/baseEntity';
 import { Column, Entity } from 'typeorm';
 @Entity()
@@ -50,6 +51,7 @@ export class Employee extends BaseEntity {
   @ApiProperty({
     description: '账户名称-登陆时的账号',
   })
+  @IsNotEmpty({ message: '用户名不为空' })
   @Column({
     comment: '账户名称-登陆时的账号',
   })
