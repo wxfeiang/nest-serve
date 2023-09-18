@@ -19,8 +19,10 @@ import { HttpExceptionFilter } from './common/exceptions/http.exception.filter';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 import { getConfig } from './common/utils/ymlConfig';
 import { EmployeeModule } from './employee/employee.module';
-import { UserModule } from './user/user.module';
 import { OrganizationModule } from './organization/organization.module';
+import { UserModule } from './user/user.module';
+
+import { DepartmentModule } from './department/department.module';
 
 @Module({
   imports: [
@@ -50,6 +52,7 @@ import { OrganizationModule } from './organization/organization.module';
     AuthModule,
     BaseModule,
     OrganizationModule,
+    DepartmentModule
   ],
   // controllers: [AppController],
   controllers: [],

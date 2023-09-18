@@ -1,6 +1,6 @@
-import { BaseEntity } from '../../common/database/baseEntity';
-import { Column, Entity } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
+import { Column, Entity } from 'typeorm';
+import { BaseEntity } from '../../common/database/baseEntity';
 
 @Entity({
   orderBy: {

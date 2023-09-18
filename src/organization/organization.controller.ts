@@ -4,15 +4,15 @@ import {
   Delete,
   Get,
   Param,
+  ParseArrayPipe,
   Post,
   Put,
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { OrganizationService } from './organization.service';
-import { Organization } from './entities/organization.entity';
 import { isPublic } from 'src/auth/constants';
-import { ParseArrayPipe } from '@nestjs/common';
+import { Organization } from './entities/organization.entity';
+import { OrganizationService } from './organization.service';
 
 @ApiTags('组织架构模块')
 @Controller('organization')
@@ -28,7 +28,7 @@ export class OrganizationController {
   }
 
   @ApiOperation({
-    summary: '部门员工分页',
+    summary: '当前部门 ID 下的员工',
   })
   @Get('employee/page')
   employeePage(

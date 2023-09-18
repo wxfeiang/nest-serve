@@ -50,7 +50,7 @@ export class OrganizationService {
    * @param page
    * @param pageSize
    * @param name
-   * @returns 部门员工分页
+   * @returns 当前部门下的员工======分页
    */
   async employeePage(id: string, page: number, pageSize: number, name = '') {
     // 获取当前部门下的员工id
@@ -65,7 +65,7 @@ export class OrganizationService {
       },
       skip: (page - 1) * pageSize,
       take: pageSize,
-    });
+    }); 
     return new BasePage<Employee>(page, pageSize, count, employeeList);
   }
 
