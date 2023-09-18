@@ -4,7 +4,7 @@ HTTP:
 
 # jwt
 JWT:
-  secret: secretKey
+  secret: wxfiang@qq.com
   signOptions:
     expiresIn: 3600s
 
