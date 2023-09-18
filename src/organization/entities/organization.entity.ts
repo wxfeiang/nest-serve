@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity } from 'typeorm';
+import { Employee } from 'src/employee/entities/employee.entity';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseEntity } from '../../common/database/baseEntity';
 
 @Entity({
@@ -47,4 +48,9 @@ export class Organization extends BaseEntity {
     comment: '父级ID',
   })
   pId: string;
+
+  @ManyToOne(() => Employee, (employee) => employee.organization)
+  // .  是要创建与外表连接的键的： name的话是本表的外键userId名， id的话是主表的主键名
+  @JoinColumn({ name: 'e_id', referencedColumnName: 'id' })
+  employee: Employee;
 }
