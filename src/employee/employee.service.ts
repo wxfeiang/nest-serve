@@ -32,7 +32,7 @@ export default class EmployeeService {
    */
   async page(page: number, pageSize: number, name = '') {
     const [employeeList, total] = await this.employeeRepository.findAndCount({
-      relations: ['organization'],
+      relations: ['organization', 'role'],
       where: {
         name: Like(`%${name}%`),
       },

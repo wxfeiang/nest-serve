@@ -23,6 +23,7 @@ import { OrganizationModule } from './organization/organization.module';
 import { UserModule } from './user/user.module';
 
 import { DepartmentModule } from './department/department.module';
+import { RoleModule } from './role/role.module';
 
 @Module({
   imports: [
@@ -52,7 +53,8 @@ import { DepartmentModule } from './department/department.module';
     AuthModule,
     BaseModule,
     OrganizationModule,
-    DepartmentModule
+    DepartmentModule,
+    RoleModule
   ],
   // controllers: [AppController],
   controllers: [],
