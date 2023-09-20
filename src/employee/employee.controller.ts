@@ -97,7 +97,7 @@ export class EmployeeController {
   @ApiOperation({
     summary: '根据ID查询',
   })
-  @Get('id/:id') // 直接写id 会优先匹配到这个路径
+  @Get('id/:id') // 直接写id 会优先匹配到这个路径/或者放到最后
   findOne(@Param('id') id: string) {
     return this.employeeService.findById(id);
   }

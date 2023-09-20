@@ -1,9 +1,9 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 import { BaseEntity } from 'src/common/database/baseEntity';
-import { Role } from 'src/role/entities/role.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 import { Organization } from '../../organization/entities/organization.entity';
+import { EmpRole } from '../../role/entities/empRole.entity';
 @Entity()
 export class Employee extends BaseEntity {
   @ApiProperty({
@@ -90,6 +90,6 @@ export class Employee extends BaseEntity {
   @OneToMany(() => Organization, (organization) => organization.employee)
   organization: Organization[];
 
-  @OneToMany(() => Role, (Role) => Role.employee)
-  role: Role[];
+  @OneToMany(() => EmpRole, (empRole) => empRole.employee)
+  role: EmpRole[];
 }

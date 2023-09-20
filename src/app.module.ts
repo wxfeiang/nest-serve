@@ -54,7 +54,7 @@ import { RoleModule } from './role/role.module';
     BaseModule,
     OrganizationModule,
     DepartmentModule,
-    RoleModule
+    RoleModule,
   ],
   // controllers: [AppController],
   controllers: [],

@@ -65,7 +65,7 @@ export class OrganizationService {
       },
       skip: (page - 1) * pageSize,
       take: pageSize,
-    }); 
+    });
     return new BasePage<Employee>(page, pageSize, count, employeeList);
   }
 
