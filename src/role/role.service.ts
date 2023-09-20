@@ -22,7 +22,6 @@ export class RoleService {
   }
 
   update(role: Role) {
-    console.log('🥪[role]:', role);
     return this.roleRepositroy.update({ id: role.id }, role);
   }
 

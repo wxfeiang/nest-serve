@@ -4,8 +4,8 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
+  Put,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { Role } from './entities/role.entity';
@@ -26,17 +26,17 @@ export class RoleController {
     return this.roleService.findAll();
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.roleService.findOne(id);
-  // }
+  @Get()
+  findOne(@Param('id') id: string) {
+    return this.roleService.findOne(id);
+  }
 
-  @Patch(':id')
+  @Put()
   update(@Body() role: Role) {
     return this.roleService.update(role);
   }
 
-  @Delete(':id')
+  @Delete()
   remove(@Param('id') id: string) {
     return this.roleService.remove(id);
   }

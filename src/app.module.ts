@@ -65,6 +65,7 @@ import { RoleModule } from './role/role.module';
       provide: APP_PIPE,
       useFactory: () => {
         return new ValidationPipe({
+          // whitelist: true, // 自动删除非白名单属性(在验证类中没有任何修饰符的属性)
           transform: true, // 属性转换
         });
       },
