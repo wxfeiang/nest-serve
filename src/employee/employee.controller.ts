@@ -18,6 +18,7 @@ import { CustomException } from 'src/common/exceptions/custom.exception';
 import { exportExcel } from 'src/common/utils/fileExport';
 import { AuthService } from '../auth/auth.service';
 import { TIdAndUsername } from '../types/index';
+import { CreateEmployeeDto } from './dto/create-employee.dto';
 import EmployeeService from './employee.service';
 import { Employee } from './entities/employee.entity';
 
@@ -35,7 +36,7 @@ export class EmployeeController {
   })
   @isPublic()
   @Post('login')
-  async login(@Body() employee: Employee) {
+  async login(@Body() employee: CreateEmployeeDto) {
     const { username, password } = employee;
     const _employee = await this.employeeService.findByUsername(username);
 

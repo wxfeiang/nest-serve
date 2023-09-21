@@ -82,7 +82,6 @@ export class Employee extends BaseEntity {
     //可选空
     description: '头像',
   })
-  //@IsNotEmpty({ message: '用户头像不能为空' })
   @Column({
     comment: '头像',
   })
