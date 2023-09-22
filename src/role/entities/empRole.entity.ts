@@ -11,7 +11,13 @@ export class EmpRole extends BaseEntity {
     comment: '角色名称',
   })
   name: string;
-
+  @ApiProperty({
+    description: '角色ID',
+  })
+  @Column({
+    comment: '角色 seID',
+  })
+  rId: string;
   @ApiProperty({
     description: '员工ID',
   })

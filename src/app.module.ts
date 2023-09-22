@@ -24,7 +24,7 @@ import { UserModule } from './user/user.module';
 
 import { DepartmentModule } from './department/department.module';
 import { RoleModule } from './role/role.module';
-
+console.log('🥨', RoleModule);
 @Module({
   imports: [
     UserModule,

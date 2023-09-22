@@ -7,7 +7,8 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { EmpRole } from './entities/empRole.entity';
 import { Role } from './entities/role.entity';
 import { RoleService } from './role.service';
 
@@ -16,28 +17,58 @@ import { RoleService } from './role.service';
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
+  @ApiOperation({
+    summary: '创建角色',
+  })
   @Post()
   create(@Body() role: Role) {
     return this.roleService.create(role);
   }
 
-  @Get()
+  @ApiOperation({
+    summary: '获取全部角色',
+  })
+  @Get('all')
   findAll() {
     return this.roleService.findAll();
   }
 
+  @ApiOperation({
+    summary: 'ID查询角色',
+  })
   @Get()
   findOne(@Param('id') id: string) {
     return this.roleService.findOne(id);
   }
 
+  @ApiOperation({
+    summary: '更新角色',
+  })
   @Put()
   update(@Body() role: Role) {
     return this.roleService.update(role);
   }
-
+  @ApiOperation({
+    summary: '删除角色',
+  })
   @Delete()
   remove(@Param('id') id: string) {
     return this.roleService.remove(id);
+  }
+
+  @ApiOperation({
+    summary: '员工角色添加',
+  })
+  @Post('empRole')
+  addEmpRole(@Body() empRole: EmpRole) {
+    return this.roleService.addEmpRole(empRole);
+  }
+
+  @ApiOperation({
+    summary: '员工角色添加',
+  })
+  @Post('empRole')
+  delEmpRole(@Body('ids') ids: string[]) {
+    return this.roleService.delEmpRole(ids);
   }
 }
