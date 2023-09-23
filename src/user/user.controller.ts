@@ -1,4 +1,3 @@
-import { HttpService } from '@nestjs/axios';
 import {
   Body,
   Controller,
@@ -9,19 +8,16 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { AxiosResponse } from 'axios';
-import { Observable, map } from 'rxjs';
+import * as cheerio from 'cheerio';
 import { isPublic } from 'src/auth/constants';
+import { http } from 'src/common/utils/https';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
 @ApiTags('用户管理')
 @Controller('user')
 export class UserController {
-  constructor(
-    private readonly userService: UserService,
-    private readonly httpService: HttpService,
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   @ApiOperation({
     summary: '用户列表',
@@ -60,9 +56,13 @@ export class UserController {
   })
   @Get('outherHttp')
   @isPublic()
-  outherHttp(): Observable<AxiosResponse> {
-    return this.httpService
-      .get('https://jsonplaceholder.typicode.com/posts')
-      .pipe(map((res) => res.data));
+  async outherHttp() {
+    const data: any = await http.request({
+      url: 'https://jsonplaceholder.typicode.com',
+      method: 'get',
+    });
+    const $ = cheerio.load(data);
+    const a = $('#hero').text();
+    return a;
   }
 }
