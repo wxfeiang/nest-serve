@@ -44,7 +44,7 @@ jobs:
         run: pnpm install --no-frozen-lockfile
       # 生成静态文件
       - name: Build
-        run: pnpm run docs:build
+        run: pnpm build
 
 
       - name: Deploy-myserver
