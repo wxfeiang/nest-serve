@@ -53,5 +53,8 @@ nest g resource
 nest g resource 【名称】 --no-spec
 
 
-
+nest g co user
+nest g mo user
+nest g s user
+nest g resource user --no-spec
 ##  

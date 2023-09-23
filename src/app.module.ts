@@ -24,6 +24,7 @@ import { UserModule } from './user/user.module';
 
 import { DepartmentModule } from './department/department.module';
 import { RoleModule } from './role/role.module';
+import { MyresourcesModule } from './myresources/myresources.module';
 @Module({
   imports: [
     UserModule,
@@ -54,6 +55,7 @@ import { RoleModule } from './role/role.module';
     OrganizationModule,
     DepartmentModule,
     RoleModule,
+    MyresourcesModule,
   ],
   // controllers: [AppController],
   controllers: [],
