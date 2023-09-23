@@ -47,7 +47,7 @@ jobs:
         run: pnpm build
 
 
-      - name: Deploy-myserver
+      - name: Deploy cp server
         # 因为构建之后，需要把代码上传到服务器上，所以需要连接到ssh，并且做一个拷贝操作
         uses: cross-the-world/scp-pipeline@master
         env:
@@ -58,7 +58,7 @@ jobs:
           user: ${{ secrets.USER_NAME }}
           pass: ${{ secrets.USER_PASS }}
           connect_timeout: 10s
-          local: '/dist/*'
+          local: 'dist/*'
           remote: /home/nest-serve/    # 成的静态文件存放的地方
     
  # 运行服务
@@ -70,4 +70,6 @@ jobs:
           pass: ${{ secrets.USER_PASS }}
           script: |
             cd /home/nest-serve/
+            ls -al
             pm2 restart ./dist/src/main.js --name nest-serve
+            pm2 list
