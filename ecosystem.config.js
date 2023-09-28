@@ -32,14 +32,15 @@ module.exports = {
       repo: 'git@github.com:wxfeiang/nest-serve.git',
       path: '/home/nest-serve', // path 指定项目目录
       'pre-deploy': 'git fetch --all',
-      // Pre-setup 在 setup 之前执行，如安装 git
-      'pre-setup': 'pnpm install ; ls -la',
+      'pre-deploy-local': "echo '正在安装依赖项！。。。。'",
+      'pre-setup': 'pnpm install',
       // Post-setup 在 setup 之后执行
       'post-setup': 'ls -la',
       // 每次 update 都会执行
-      'pre-deploy-local': "echo '生产环境部署中'",
+      'pre-deploy-local': "echo '生产环境部署中。。。。。'",
       'post-deploy':
         'pnpm install &&  pm2 startOrRestart ecosystem.config.js --env production && pm2 flush ',
+      'pre-deploy-local': "echo '部署成功了。。。。。'",
     },
     // 可配置不同env 环境
   },
