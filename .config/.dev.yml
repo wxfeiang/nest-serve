@@ -8,7 +8,7 @@ VERSION:
 JWT:
   secret: wxfiang@qq.com
   signOptions:
-    expiresIn: 3600s
+    expiresIn: 360000s
 
  # mysql
 MYSQL_CONFIG:
