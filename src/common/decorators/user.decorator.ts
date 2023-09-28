@@ -12,6 +12,7 @@ export const User = createParamDecorator<
   | Pick<Employee, TIdAndUsername>[TIdAndUsername]
 >((data, ctx) => {
   const user = ctx.switchToHttp().getRequest<Request>().user;
+
   if (data && user) {
     return user[data];
   }

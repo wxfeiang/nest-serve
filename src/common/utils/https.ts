@@ -3,23 +3,25 @@
  * @Description:   请求方法 组件库自动导入了
  * @Date: 2023-08-28 09:06:24
  * @LastEditors: wxfeiang wxfeiang@qq.com
- * @LastEditTime: 2023-09-23 14:14:17
- * @FilePath: /nest-server/src/common/utils/https.ts
+ * @LastEditTime: 2023-09-23 17:31:43
+ * @FilePath: /nest-serve/src/common/utils/https.ts
  * Copyright (c) 2023 by ${git_name} email: ${git_email}, All Rights Reserved.
  */
 
 import axios, { AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
 interface IOptions {
-  loading?: boolean;
+  gbk?: boolean;
   message?: boolean;
-  clearValidateError?: boolean;
+  text?: boolean;
+  all?: boolean;
 }
 export class Axios {
   private instance;
   private options: IOptions = {
-    loading: true,
+    gbk: true,
     message: true,
-    clearValidateError: true,
+    text: true,
+    all: false,
   };
   constructor(config: AxiosRequestConfig) {
     this.instance = axios.create(config);
@@ -31,7 +33,7 @@ export class Axios {
     return new Promise(async (resolve, reject) => {
       try {
         const response = await this.instance.request(config);
-        resolve(response.data);
+        resolve(this.options.all ? response : response.data);
       } catch (error) {
         reject(error);
       }
@@ -46,7 +48,7 @@ export class Axios {
   private interceptorsRequest() {
     this.instance.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
-        //   if (this.options.clearValidateError) useErrorStore().resetError();
+        //   if (this.options.text) useErrorStore().resetError();
         config.headers.Accept = 'application/json';
         //  config.headers.Authorization = `${storage.get(CacheEnum.TOKEN_NAME)}`;
         // FIX: 暂时去掉token 前缀 Bearer ，后端有返回

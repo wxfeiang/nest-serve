@@ -8,9 +8,7 @@ import {
   Put,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import * as cheerio from 'cheerio';
-import { isPublic } from 'src/auth/constants';
-import { http } from 'src/common/utils/https';
+
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
@@ -49,20 +47,5 @@ export class UserController {
   @Delete(':id')
   delete(@Param('id') id: number) {
     return this.userService.delete(id);
-  }
-
-  @ApiOperation({
-    summary: '调用第三方接口测试',
-  })
-  @Get('outherHttp')
-  @isPublic()
-  async outherHttp() {
-    const data: any = await http.request({
-      url: 'https://jsonplaceholder.typicode.com',
-      method: 'get',
-    });
-    const $ = cheerio.load(data);
-    const a = $('#hero').text();
-    return a;
   }
 }
