@@ -8,6 +8,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { isPublic } from 'src/auth/constants';
+import { getConfig } from 'src/common/utils/ymlConfig';
 
 @ApiTags('公共模块')
 @Controller('base')
@@ -24,7 +25,7 @@ export class BaseController {
   ) {
     // 如果是 localhost 就加上http://
     if (!host.includes('://')) {
-      host = `http://${host}`;
+      host = `http://${host}/v${getConfig('VERSION').index}/`;
     }
     const data = {
       url: file.path,
