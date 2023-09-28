@@ -28,7 +28,7 @@ module.exports = {
       host: ['47.99.93.97'],
       port: '22',
       ssh_options: 'StrictHostKeyChecking=no',
-      ref: 'origin/nest-serve',
+      ref: 'origin/main',
       repo: 'git@github.com:wxfeiang/nest-serve.git',
       path: '/home/nest-serve', // path 指定项目目录
       'pre-deploy': 'git fetch --all',
