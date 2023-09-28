@@ -1,6 +1,6 @@
 import { Injectable, Param } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { EmpRole } from './entities/empRole.entity';
 import { Role } from './entities/role.entity';
@@ -40,10 +40,14 @@ export class RoleService {
     return this.EmpRolepositroy.save(empRole);
   }
   /**
-   * @description: 删除用户角色 //TODO:
+   * @description: 删除用户角色 //TODO:带测试'
    * @return {}
    */
-  async delEmpRole(ids: string[]) {
-    return !!(await this.EmpRolepositroy.delete({ id: In(ids) })).affected;
+  async delEmpRole(empRole: EmpRole) {
+    console.log('🍡', empRole);
+    return await this.EmpRolepositroy.delete({
+      eId: empRole.eId,
+      rId: empRole.rId,
+    });
   }
 }

@@ -15,5 +15,6 @@ export class CreateEmployeeDto {
     example: '123456',
   })
   @IsNotEmpty({ message: '密码不能为空' })
+  //  @IsOptional()  // 仅在它是请求正文的一部分时才进行验证
   password: string;
 }

@@ -65,10 +65,10 @@ export class RoleController {
   }
 
   @ApiOperation({
-    summary: '员工角色添加',
+    summary: '员工角色删除',
   })
   @Post('empRole')
-  delEmpRole(@Body('ids') ids: string[]) {
-    return this.roleService.delEmpRole(ids);
+  delEmpRole(@Body() empRole: EmpRole) {
+    return this.roleService.delEmpRole(empRole);
   }
 }
