@@ -23,7 +23,7 @@
     "sp": "pm2 deploy ecosystem.config.js production setup",
     "dp": "pm2 deploy ecosystem.config.js production",
     "up": "pm2 deploy production update",
-    "pushUp": "git push && pm2 deploy production update",
+    "pushUp": "git push && pm2 deploy production update"
   },
   "dependencies": {
     "@nestjs/common": "^10.2.5",
