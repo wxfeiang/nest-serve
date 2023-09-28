@@ -33,7 +33,7 @@ module.exports = {
       path: '/home/nest-serve', // path 指定项目目录
       'pre-deploy': 'git fetch --all',
       // Pre-setup 在 setup 之前执行，如安装 git
-      // 'pre-setup': 'apt-get install git ; ls -la',
+      'pre-setup': 'pnpm install ; ls -la',
       // Post-setup 在 setup 之后执行
       'post-setup': 'ls -la',
       // 每次 update 都会执行
