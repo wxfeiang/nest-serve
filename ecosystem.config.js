@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'nest-serve',
-      script: '/dist/main.js', // 写本来启动的入口路径就好
+      script: './dist/main.js', // 写本来启动的入口路径就好
       autorestart: true,
       watch: true,
       ignore_watch: [
