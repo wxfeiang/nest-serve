@@ -39,7 +39,7 @@ module.exports = {
       // 每次 update 都会执行
       'pre-deploy-local': "echo '生产环境部署中'",
       'post-deploy':
-        'pnpm install &&  pm2 startOrRestart ecosystem.config.js --env production && pm2 flush ',
+        'pnpm install && pnpm build  &&  pm2 startOrRestart ecosystem.config.js --env production && pm2 flush ',
     },
     // 可配置不同env 环境
   },
