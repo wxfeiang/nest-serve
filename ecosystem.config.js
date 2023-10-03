@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'nest-serve',
-      script: '/dist/main.js', // 写本来启动的入口路径就好
+      script: './dist/src/main.js', // 写本来启动的入口路径就好
       autorestart: true,
       watch: true,
       ignore_watch: [
@@ -39,8 +39,7 @@ module.exports = {
       // 每次 update 都会执行
       'pre-deploy-local': "echo '生产环境部署中。。。。。'",
       'post-deploy':
-        'pnpm install &&  pm2 startOrRestart ecosystem.config.js --env production && pm2 flush ',
-      'pre-deploy-local': "echo '部署成功了。。。。。'",
+        'pnpm install && pnpm build &&  pm2 startOrRestart ecosystem.config.js --env production && pm2 flush ',
     },
     // 可配置不同env 环境
   },
