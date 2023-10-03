@@ -25,6 +25,7 @@ import { UserModule } from './user/user.module';
 import { DepartmentModule } from './department/department.module';
 import { RoleModule } from './role/role.module';
 import { MyresourcesModule } from './myresources/myresources.module';
+import { SocketModule } from './socket/socket.module';
 @Module({
   imports: [
     UserModule,
@@ -56,6 +57,7 @@ import { MyresourcesModule } from './myresources/myresources.module';
     DepartmentModule,
     RoleModule,
     MyresourcesModule,
+    SocketModule,
   ],
   // controllers: [AppController],
   controllers: [],
