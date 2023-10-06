@@ -51,11 +51,12 @@ export class RoleController {
   @ApiOperation({
     summary: '删除角色',
   })
-  @Delete()
+  @Delete(':id')
   remove(@Param('id') id: string) {
     return this.roleService.remove(id);
   }
 
+  /** 角色关系-- */
   @ApiOperation({
     summary: '员工角色添加',
   })
