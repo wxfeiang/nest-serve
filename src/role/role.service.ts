@@ -8,7 +8,8 @@ import { Role } from './entities/role.entity';
 @Injectable()
 export class RoleService {
   constructor(
-    @InjectRepository(Role) private readonly roleRepositroy: Repository<Role>,
+    @InjectRepository(Role)
+    private readonly roleRepositroy: Repository<Role>,
     @InjectRepository(EmpRole)
     private readonly EmpRolepositroy: Repository<EmpRole>,
   ) {}
@@ -33,18 +34,17 @@ export class RoleService {
   }
 
   /**
-   * @description: 添加用户角色
+   * @description: 添加用户角色 //TODO:后期修改
    * @return {}
    */
   addEmpRole(empRole: EmpRole) {
     return this.EmpRolepositroy.save(empRole);
   }
   /**
-   * @description: 删除用户角色 //TODO:带测试'
+   * @description: 删除用户角色
    * @return {}
    */
   async delEmpRole(empRole: EmpRole) {
-    console.log('🍡', empRole);
     return await this.EmpRolepositroy.delete({
       eId: empRole.eId,
       rId: empRole.rId,

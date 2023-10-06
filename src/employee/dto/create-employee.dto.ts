@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 
+//NOTE:   后期所有的接口要完善 入参数校验
 export class CreateEmployeeDto {
   @ApiProperty({
     description: '账户名称-登陆时的账号',

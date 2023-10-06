@@ -59,7 +59,7 @@ export class RoleController {
   @ApiOperation({
     summary: '员工角色添加',
   })
-  @Post('empRole')
+  @Post('addEmpRole')
   addEmpRole(@Body() empRole: EmpRole) {
     return this.roleService.addEmpRole(empRole);
   }
@@ -67,7 +67,7 @@ export class RoleController {
   @ApiOperation({
     summary: '员工角色删除',
   })
-  @Post('empRole')
+  @Post('delEmpRole')
   delEmpRole(@Body() empRole: EmpRole) {
     return this.roleService.delEmpRole(empRole);
   }
