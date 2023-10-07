@@ -85,7 +85,7 @@ export default class EmployeeService {
   async delete(ids: string[]) {
     // 只能删除停用的账号
     // 启用中的账号是不能删除的，可以通过count进行查询
-    // In等同sql中的 IN 关键字
+    // In等同sql中的 IN 关键字,
     const count = await this.employeeRepository.countBy({
       id: In(ids),
       status: 1,

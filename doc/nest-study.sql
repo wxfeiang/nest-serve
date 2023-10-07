@@ -15,7 +15,7 @@ CREATE TABLE `department` (
 	`update_user` BIGINT NOT NULL COMMENT '修改人',
 	PRIMARY KEY ( `id` ),
 	UNIQUE KEY `name` ( `name` )
-) ENGINE = INNODB AUTO_INCREMENT = 13 DEFAULT CHARSET = utf8 COMMENT = '部门信息表';-- ----------------------------
+) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COMMENT = '部门信息表';-- ----------------------------
 -- Records of department
 -- ----------------------------
 BEGIN;
@@ -76,7 +76,7 @@ BEGIN;
 		PRIMARY KEY ( `id` ),
 		UNIQUE KEY `name` ( `name` ),
 		UNIQUE KEY `id_number` ( `id_number` )
-	) ENGINE = INNODB AUTO_INCREMENT = 13 DEFAULT CHARSET = utf8 COMMENT = '员工信息表';-- ----------------------------
+	) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COMMENT = '员工信息表';-- ----------------------------
 -- Records of employee
 -- ----------------------------
 	BEGIN;
@@ -98,33 +98,9 @@ BEGIN;
 		) ENGINE = INNODB AUTO_INCREMENT = 10 DEFAULT CHARSET = utf8 COMMENT = '跟踪记录表';-- ----------------------------
 -- Records of track_log
 -- ----------------------------
-		BEGIN;
-			INSERT INTO `track_log`
-			VALUES
-				( 3, '员工管理', '2023-02-01 02:46:17', 16 );
-			INSERT INTO `track_log`
-			VALUES
-				( 5, '组织架构', '2023-02-01 02:46:19', 15 );
-			INSERT INTO `track_log`
-			VALUES
-				( 6, '部门管理', '2023-02-01 02:47:32', 23 );
-			INSERT INTO `track_log`
-			VALUES
-				( 7, '员工管理', '2023-02-02 10:34:30', 8 );
-			INSERT INTO `track_log`
-			VALUES
-				( 8, '部门管理', '2023-02-02 10:34:30', 6 );
-			INSERT INTO `track_log`
-			VALUES
-				( 9, '组织架构', '2023-02-02 10:34:31', 3 );
-			COMMIT;
-
-			SET FOREIGN_KEY_CHECKS = 1;-- ----------------------------
--- Table structure for organization
--- ----------------------------
 			DROP TABLE
 			IF
-				EXISTS `organization`;
+				EXISTS `role`;
 			CREATE TABLE `role` (
 				`id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键id',
 				`name` VARCHAR ( 255 ) DEFAULT NULL COMMENT '角色名称',
@@ -134,8 +110,8 @@ BEGIN;
 				`create_user` BIGINT NOT NULL COMMENT '创建人',
 				`update_user` BIGINT NOT NULL COMMENT '修改人',
 				PRIMARY KEY ( `id` )
-			) ENGINE = INNODB AUTO_INCREMENT = 21 DEFAULT CHARSET = utf8 COMMENT = '角色表';-- ----------------------------
--- Table structure for organization
+			) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COMMENT = '角色表';-- ----------------------------
+-- Table structure for emp_role
 -- ----------------------------
 			DROP TABLE
 			IF
@@ -150,7 +126,9 @@ BEGIN;
 				`create_user` BIGINT NOT NULL COMMENT '创建人',
 				`update_user` BIGINT NOT NULL COMMENT '修改人',
 				PRIMARY KEY ( `id` )
-			) ENGINE = INNODB AUTO_INCREMENT = 21 DEFAULT CHARSET = utf8 COMMENT = '员工角色关系表';-- ----------------------------
+			) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COMMENT = '员工角色关系表';-- ----------------------------
+-- Table structure for emp_role
+
 -- Table structure for organization
 -- ----------------------------
 			DROP TABLE
@@ -170,6 +148,7 @@ BEGIN;
 				PRIMARY KEY ( `id` )
 			) ENGINE = INNODB AUTO_INCREMENT = 21 DEFAULT CHARSET = utf8 COMMENT = '组织架构表';-- ----------------------------
 -- Records of organization
+-- ----------------------------
 -- ----------------------------
 			BEGIN;
 				INSERT INTO `organization`
@@ -208,7 +187,7 @@ BEGIN;
 					`create_user` BIGINT NOT NULL COMMENT '创建人',
 					`update_user` BIGINT NOT NULL COMMENT '修改人',
 					PRIMARY KEY ( `id` )
-				) ENGINE = INNODB AUTO_INCREMENT = 21 DEFAULT CHARSET = utf8 COMMENT = '字典管理表';-- ----------------------------
+				) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COMMENT = '字典管理表';-- ----------------------------
 -- Table structure for dictType
 -- ----------------------------
 				DROP TABLE
@@ -229,4 +208,4 @@ BEGIN;
 					`create_user` BIGINT NOT NULL COMMENT '创建人',
 					`update_user` BIGINT NOT NULL COMMENT '修改人',
 				PRIMARY KEY ( `id` )
-) ENGINE = INNODB AUTO_INCREMENT = 21 DEFAULT CHARSET = utf8 COMMENT = '字典值对应表';
+) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COMMENT = '字典值对应表';
