@@ -22,7 +22,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "sp": "pm2 deploy ecosystem.config.js production setup",
     "dp": "pm2 deploy ecosystem.config.js production",
-    "up": "pm2 deploy production update",
+    "upDp": "pm2 deploy production update",
     "pushUp": "git push && pm2 deploy production update"
   },
   "dependencies": {
