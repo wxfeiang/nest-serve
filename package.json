@@ -21,9 +21,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "sp": "pm2 deploy ecosystem.config.js production setup",
-    "dp": "pm2 deploy ecosystem.config.js production",
-    "upDp": "pm2 deploy production update",
-    "pushUp": "git push && pm2 deploy production update"
+    "deploy": "pm2 deploy ecosystem.config.js production",
+    "updeploy": "pm2 deploy production update",
+    "pushUpdeploy": "git push && pm2 deploy production update"
   },
   "dependencies": {
     "@nestjs/axios": "^3.0.0",

@@ -26,6 +26,7 @@ import { DepartmentModule } from './department/department.module';
 import { RoleModule } from './role/role.module';
 import { MyresourcesModule } from './myresources/myresources.module';
 import { DictModule } from './dict/dict.module';
+import { MenuModule } from './menu/menu.module';
 @Module({
   imports: [
     UserModule,
@@ -58,6 +59,7 @@ import { DictModule } from './dict/dict.module';
     RoleModule,
     MyresourcesModule,
     DictModule,
+    MenuModule,
   ],
   // controllers: [AppController],
   controllers: [],

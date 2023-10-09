@@ -209,3 +209,32 @@ BEGIN;
 					`update_user` BIGINT NOT NULL COMMENT '修改人',
 				PRIMARY KEY ( `id` )
 ) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COMMENT = '字典值对应表';
+
+
+
+-- Table structure for menu
+-- ----------------------------
+				DROP TABLE
+				IF
+					EXISTS `menu`;
+				CREATE TABLE `menu` (
+					`id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键id',
+					`name` VARCHAR ( 255 ) DEFAULT NULL COMMENT '菜单名称',
+					`type` INT NOT NULL DEFAULT '1' COMMENT '类型 0 目录; 1菜单 : 2, 按钮',
+					`status` INT NOT NULL DEFAULT '1' COMMENT '状态 0 禁用; 1启用',
+					`is_link` INT NOT NULL DEFAULT '1' COMMENT '是否外链 0 是; 1否',
+					`is_cache` INT NOT NULL DEFAULT '1' COMMENT '是否缓存 0 是; 1否',
+					`show` INT NOT NULL DEFAULT '1' COMMENT '是否显示 0 禁用; 1启用',
+					`router_url` VARCHAR ( 255 ) DEFAULT NULL COMMENT '路由地址',
+					`router_params` VARCHAR ( 255 ) DEFAULT NULL COMMENT '路由参数',
+					`compoents_url` VARCHAR ( 255 ) DEFAULT NULL COMMENT '组件地址',
+					`auth_str` VARCHAR ( 255 ) DEFAULT NULL COMMENT '权限字符',
+					`icon` VARCHAR ( 255 ) DEFAULT NULL COMMENT '图标',
+					`sort` INT NOT DEFAULT NULL COMMENT '顺序',
+					`p_id` BIGINT DEFAULT NULL COMMENT '父级ID',
+					`create_time` DATETIME NOT NULL COMMENT '创建时间',
+					`update_time` DATETIME NOT NULL COMMENT '更新时间',
+					`create_user` BIGINT NOT NULL COMMENT '创建人',
+					`update_user` BIGINT NOT NULL COMMENT '修改人',
+				PRIMARY KEY ( `id` )
+) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COMMENT = '菜单表';
