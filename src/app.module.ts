@@ -27,6 +27,7 @@ import { RoleModule } from './role/role.module';
 import { MyresourcesModule } from './myresources/myresources.module';
 import { DictModule } from './dict/dict.module';
 import { MenuModule } from './menu/menu.module';
+import { IndividualtaxesModule } from './individualtaxes/individualtaxes.module';
 @Module({
   imports: [
     UserModule,
@@ -60,6 +61,7 @@ import { MenuModule } from './menu/menu.module';
     MyresourcesModule,
     DictModule,
     MenuModule,
+    IndividualtaxesModule,
   ],
   // controllers: [AppController],
   controllers: [],

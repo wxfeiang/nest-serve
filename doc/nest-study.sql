@@ -238,3 +238,27 @@ BEGIN;
 					`update_user` BIGINT NOT NULL COMMENT '修改人',
 				PRIMARY KEY ( `id` )
 ) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COMMENT = '菜单表';
+
+
+
+
+-- Table structure for menu
+-- ----------------------------
+				DROP TABLE
+				IF
+					EXISTS `individual_taxes`;
+				CREATE TABLE `individual_taxes` (
+					`id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键id',
+					`name` VARCHAR ( 255 ) DEFAULT NULL COMMENT '名称',
+					`type` INT NOT NULL DEFAULT '1' COMMENT '类型 0 正常; 字典查询。。。',
+					`company` VARCHAR ( 255 ) DEFAULT NULL COMMENT '公司',
+					`deduct` INT COMMENT '扣除',
+					`revenue` INT  COMMENT '收入',
+					`date` DATE  NULL COMMENT '时间',
+					`e_id` BIGINT DEFAULT NULL COMMENT '用户',
+					`create_time` DATETIME NOT NULL COMMENT '创建时间',
+					`update_time` DATETIME NOT NULL COMMENT '更新时间',
+					`create_user` BIGINT NOT NULL COMMENT '创建人',
+					`update_user` BIGINT NOT NULL COMMENT '修改人',
+				PRIMARY KEY ( `id` )
+) ENGINE = INNODB AUTO_INCREMENT = 1 DEFAULT CHARSET = utf8 COMMENT = '个税明细表';
