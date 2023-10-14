@@ -1,26 +1,46 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { listToTree } from 'src/common/utils';
+import { Repository } from 'typeorm';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
+import { Menu } from './entities/menu.entity';
 
 @Injectable()
 export class MenuService {
+  constructor(
+    @InjectRepository(Menu)
+    private readonly MenuRpositroy: Repository<Menu>,
+  ) {}
+
   create(createMenuDto: CreateMenuDto) {
-    return 'This action adds a new menu';
+    return this.MenuRpositroy.save(createMenuDto);
   }
 
   findAll() {
-    return `This action returns all menu`;
+    return this.MenuRpositroy.find({
+      order: {
+        sort: 'DESC',
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} menu`;
+  findOne(id: string) {
+    return this.MenuRpositroy.findOneBy({ id });
   }
 
-  update(id: number, updateMenuDto: UpdateMenuDto) {
-    return `This action updates a #${id} menu`;
+  async update(updateMenuDto: UpdateMenuDto) {
+    console.log('🍉[updateMenuDto]:', updateMenuDto);
+    return !!(
+      await this.MenuRpositroy.update({ id: updateMenuDto.id }, updateMenuDto)
+    ).affected;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} menu`;
+  async remove(id: string) {
+    return !!(await this.MenuRpositroy.delete({ id })).affected;
+  }
+
+  async tree() {
+    return listToTree(await this.MenuRpositroy.find());
   }
 }
