@@ -19,4 +19,24 @@ export class AppController {
   getHello1() {
     return this.configService.get('HTTP');
   }
+
+  //  案例
+  // update(user: User) {
+  //   return this.userRepositroy.update({ id: user.id }, user);
+  // }
+
+  // delete(id: User['id']) {
+  //   return this.userRepositroy.delete({ id });
+  // }
+  // list() {
+  //   // FIx: 查询使用 sql  其他都是用提供的方法
+  //   const sql = `
+  //   SELECT
+  //     *
+  //   FROM
+  //     user
+  // `;
+  //   // return this.userRepositroy.find(); // 提供的简单方法
+  //   return this.userRepositroy.query(sql); // sql
+  // }
 }
