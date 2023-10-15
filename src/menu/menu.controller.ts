@@ -57,9 +57,7 @@ export class MenuController {
     summary: '获取角色对应的菜单树',
   })
   @Get('roleMenu')
-  roleMenu(@User() user: Employee) {
-    console.log('🥞[user]:', user);
-    // TODO: 改造token 获取用户所有信息、、、、
-    return this.menuService.roleMenu(user.id);
+  roleMenu(@Query('id') id: string, @User() user: Employee) {
+    return this.menuService.roleMenu(id || user.role[0].id);
   }
 }

@@ -20,8 +20,11 @@ export default class EmployeeService {
    */
 
   findByUsername(username: Employee['username']) {
-    return this.employeeRepository.findOneBy({
-      username,
+    return this.employeeRepository.findOne({
+      relations: ['organization', 'role'],
+      where: {
+        username,
+      },
     });
   }
 

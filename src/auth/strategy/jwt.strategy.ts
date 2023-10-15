@@ -20,13 +20,15 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   //  jwt验证
   async validate(
     payload: Pick<Employee, TIdAndUsername> & { iat: number; exp: number },
+    // payload: Employee & { iat: number; exp: number },
   ) {
     if (!process.env.id) {
       process.env.id = payload.id;
     }
     return {
-      id: payload.id,
-      username: payload.username,
+      // id: payload.id,
+      // username: payload.username,
+      ...payload,
     };
   }
 }

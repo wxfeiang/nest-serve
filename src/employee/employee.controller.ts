@@ -71,6 +71,7 @@ export class EmployeeController {
   //   name: 'page',
   // })
   async test(@User() user: Pick<Employee, TIdAndUsername>) {
+    console.log('🍵[user]:', user);
     return user;
   }
 

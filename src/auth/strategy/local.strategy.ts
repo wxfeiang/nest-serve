@@ -28,6 +28,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
       password,
     );
     // 验证不通过，通过自定义异常类返回权限异常信息
+    console.log('🍺[employee]:', employee);
     if (!employee) {
       throw CustomException.throwForbidden();
     }

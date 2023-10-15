@@ -20,6 +20,7 @@ export class AuthService {
     pass: Employee['password'],
   ) {
     const employee = await this.employeeService.findByUsername(username);
+
     if (employee?.password === pass) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...rest } = employee;
@@ -29,7 +30,8 @@ export class AuthService {
   }
 
   async login(employee: Employee) {
-    const payload = { username: employee.username, id: employee.id };
+    const { password, ...rest } = employee;
+    const payload = rest;
     // 使用JWT生成token
     return {
       token: this.jwtService.sign(payload),
