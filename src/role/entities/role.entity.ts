@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { BaseEntity } from '../../common/database/baseEntity';
+import { RoleMenu } from './roleMenu.entity';
+
 @Entity()
 export class Role extends BaseEntity {
   @ApiProperty({
@@ -27,4 +29,7 @@ export class Role extends BaseEntity {
     comment: '状态 0:禁用，1:正常',
   })
   status: number;
+
+  @OneToMany(() => RoleMenu, (roleMenu) => roleMenu.role)
+  roleMenu: RoleMenu[];
 }

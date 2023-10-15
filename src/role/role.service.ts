@@ -1,4 +1,4 @@
-import { Injectable, Param } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -21,8 +21,13 @@ export class RoleService {
   create(role: Role) {
     return this.roleRepositroy.save(role);
   }
-  findOne(@Param('id') id: string) {
-    return this.roleRepositroy.findOneBy({ id });
+  findOne(id: string) {
+    return this.roleRepositroy.findOne({
+      relations: ['roleMenu'],
+      where: {
+        id,
+      },
+    });
   }
 
   update(role: Role) {

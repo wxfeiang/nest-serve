@@ -7,7 +7,9 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { User } from 'src/common/decorators/user.decorator';
+import { Employee } from 'src/employee/entities/employee.entity';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { MenuService } from './menu.service';
@@ -45,5 +47,19 @@ export class MenuController {
   @Get('tree')
   tree() {
     return this.menuService.tree();
+  }
+
+  /**
+   * @description: 获取角色对应的菜单树
+   * @return {}
+   */
+  @ApiOperation({
+    summary: '获取角色对应的菜单树',
+  })
+  @Get('roleMenu')
+  roleMenu(@User() user: Employee) {
+    console.log('🥞[user]:', user);
+    // TODO: 改造token 获取用户所有信息、、、、
+    return this.menuService.roleMenu(user.id);
   }
 }

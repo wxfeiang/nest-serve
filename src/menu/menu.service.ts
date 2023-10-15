@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { listToTree } from 'src/common/utils';
+import { RoleMenu } from 'src/role/entities/roleMenu.entity';
 import { Repository } from 'typeorm';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
@@ -30,7 +31,6 @@ export class MenuService {
   }
 
   async update(updateMenuDto: UpdateMenuDto) {
-    console.log('🍉[updateMenuDto]:', updateMenuDto);
     return !!(
       await this.MenuRpositroy.update({ id: updateMenuDto.id }, updateMenuDto)
     ).affected;
@@ -42,5 +42,26 @@ export class MenuService {
 
   async tree() {
     return listToTree(await this.MenuRpositroy.find());
+  }
+
+  async roleMenu(rId) {
+    //   const sql = `
+    //   SELECT
+    //   *
+    // FROM
+    //   menu AS m
+    //   INNER JOIN
+    //   role_menu AS r
+    //   WHERE
+    //    m.id = r.m_id;
+
+    //   `;
+    // . 动态ID
+    return listToTree(
+      await this.MenuRpositroy.createQueryBuilder()
+        .innerJoin(RoleMenu, 'roleMenu', 'menu.id = roleMenu.mId')
+        .where('roleMenu.rId =' + rId)
+        .getMany(),
+    );
   }
 }

@@ -107,4 +107,8 @@ export class Menu extends BaseEntity {
     comment: '父ID',
   })
   pId: string;
+
+  // @ManyToMany(() => RoleMenu)
+  // @JoinTable()
+  // roleMeum: RoleMenu[];
 }

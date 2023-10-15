@@ -3,9 +3,9 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { EmpRole } from './entities/empRole.entity';
@@ -34,10 +34,10 @@ export class RoleController {
   }
 
   @ApiOperation({
-    summary: 'ID查询角色',
+    summary: 'ID查询角色-菜单关系',
   })
   @Get()
-  findOne(@Param('id') id: string) {
+  findOne(@Query('id') id: string) {
     return this.roleService.findOne(id);
   }
 
@@ -51,8 +51,8 @@ export class RoleController {
   @ApiOperation({
     summary: '删除角色',
   })
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete()
+  remove(@Query('id') id: string) {
     return this.roleService.remove(id);
   }
 
