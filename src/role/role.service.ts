@@ -34,17 +34,19 @@ export class RoleService {
   }
 
   async update(role: Role) {
-    let ids = role.roleMenu;
+    const ids = role.roleMenu;
+    const arr: RoleMenu[] = [];
     if (ids) {
       for (let i = 0; i < ids.length; i++) {
-        let T = new RoleMenu();
+        const T = new RoleMenu();
         T.mId = ids[i] as unknown as string;
         T.rId = role.id;
-        console.log('🍎[T.rId]:', T);
         await this.RoleMenupositroy.save(T);
+        arr.push(T);
       }
     }
-    //return this.roleRepositroy.save(role);
+    role.roleMenu = arr;
+    return this.roleRepositroy.save(role);
   }
 
   remove(id: Role['id']) {
