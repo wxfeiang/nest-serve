@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 
 import { EmpRole } from './entities/empRole.entity';
 import { Role } from './entities/role.entity';
+import { RoleMenu } from './entities/roleMenu.entity';
 
 @Injectable()
 export class RoleService {
@@ -12,13 +13,15 @@ export class RoleService {
     private readonly roleRepositroy: Repository<Role>,
     @InjectRepository(EmpRole)
     private readonly EmpRolepositroy: Repository<EmpRole>,
+    @InjectRepository(RoleMenu)
+    private readonly RoleMenupositroy: Repository<EmpRole>,
   ) {}
 
   findAll() {
     return this.roleRepositroy.find(); // 提
   }
 
-  create(role: Role) {
+  async create(role: Role) {
     return this.roleRepositroy.save(role);
   }
   findOne(id: string) {
@@ -30,8 +33,18 @@ export class RoleService {
     });
   }
 
-  update(role: Role) {
-    return this.roleRepositroy.update({ id: role.id }, role);
+  async update(role: Role) {
+    let ids = role.roleMenu;
+    if (ids) {
+      for (let i = 0; i < ids.length; i++) {
+        let T = new RoleMenu();
+        T.mId = ids[i] as unknown as string;
+        T.rId = role.id;
+        console.log('🍎[T.rId]:', T);
+        await this.RoleMenupositroy.save(T);
+      }
+    }
+    //return this.roleRepositroy.save(role);
   }
 
   remove(id: Role['id']) {
@@ -55,4 +68,9 @@ export class RoleService {
       rId: empRole.rId,
     });
   }
+
+  /**
+   * @description: 添加/编辑==角色菜单
+   * @return {}
+   */
 }
