@@ -15,7 +15,7 @@ export class EmpRole extends BaseEntity {
     description: '角色ID',
   })
   @Column({
-    comment: '角色 seID',
+    comment: '角色ID',
   })
   rId: string;
   @ApiProperty({
@@ -25,14 +25,6 @@ export class EmpRole extends BaseEntity {
     comment: '员工ID',
   })
   eId: string;
-
-  @ApiProperty({
-    description: '状态 0:禁用，1:正常',
-  })
-  @Column({
-    comment: '状态 0:禁用，1:正常',
-  })
-  status: number;
 
   @ManyToOne(() => Employee, (employee) => employee.role)
   //  是要创建与外表连接的键的： name的话是本表的外键userId名， id的话是主表的主键名

@@ -8,7 +8,6 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { EmpRole } from './entities/empRole.entity';
 import { Role } from './entities/role.entity';
 import { RoleService } from './role.service';
 
@@ -42,7 +41,7 @@ export class RoleController {
   }
 
   @ApiOperation({
-    summary: '更新角色',
+    summary: '更新角色--（包含菜单[]）',
   })
   @Put()
   update(@Body() role: Role) {
@@ -54,22 +53,5 @@ export class RoleController {
   @Delete()
   remove(@Query('id') id: string) {
     return this.roleService.remove(id);
-  }
-
-  /** 角色关系-- */
-  @ApiOperation({
-    summary: '员工角色添加',
-  })
-  @Post('addEmpRole')
-  addEmpRole(@Body() empRole: EmpRole) {
-    return this.roleService.addEmpRole(empRole);
-  }
-
-  @ApiOperation({
-    summary: '员工角色删除',
-  })
-  @Post('delEmpRole')
-  delEmpRole(@Body() empRole: EmpRole) {
-    return this.roleService.delEmpRole(empRole);
   }
 }

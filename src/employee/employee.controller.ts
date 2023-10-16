@@ -18,7 +18,7 @@ import { CustomException } from 'src/common/exceptions/custom.exception';
 import { exportExcel } from 'src/common/utils/fileExport';
 import { AuthService } from '../auth/auth.service';
 import { TIdAndUsername } from '../types/index';
-import { CreateEmployeeDto } from './dto/create-employee.dto';
+import { CreateEmployeeDto, assignRolesDto } from './dto/create-employee.dto';
 import EmployeeService from './employee.service';
 import { Employee } from './entities/employee.entity';
 
@@ -127,7 +127,13 @@ export class EmployeeController {
   setStatus(@Param('status') status: number, @Query('ids') ids: string[]) {
     return this.employeeService.setStatus(ids, status);
   }
-
+  @ApiOperation({
+    summary: '分派角色--',
+  })
+  @Post('assignRoles')
+  assignRoles(@Body() assignRole: assignRolesDto) {
+    return this.employeeService.assignRoles(assignRole);
+  }
   @ApiOperation({
     summary: '导出',
   })

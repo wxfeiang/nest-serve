@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty } from 'class-validator';
+import { IsArray, IsNotEmpty } from 'class-validator';
 
 //NOTE:   后期所有的接口要完善 入参数校验
 export class CreateEmployeeDto {
@@ -18,4 +18,18 @@ export class CreateEmployeeDto {
   @IsNotEmpty({ message: '密码不能为空' })
   //  @IsOptional()  // 仅在它是请求正文的一部分时才进行验证
   password: string;
+}
+export class assignRolesDto {
+  @ApiProperty({
+    description: '员工ID',
+    required: true,
+  })
+  @IsNotEmpty({ message: '员工ID并不能为空！' })
+  id: string;
+
+  @ApiProperty({
+    description: '角色组 ID ',
+  })
+  @IsArray({ message: 'ID组 ==不能为空' })
+  roles: assignRolesDto['id'][];
 }

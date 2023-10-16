@@ -26,6 +26,7 @@ export class RoleService {
   }
   findOne(id: string) {
     return this.roleRepositroy.findOne({
+      // select: ['id', 'mId'],
       relations: ['roleMenu'],
       where: {
         id,
@@ -37,10 +38,11 @@ export class RoleService {
     const ids = role.roleMenu;
     const arr: RoleMenu[] = [];
     if (ids) {
+      // 先删除之前的
+      this.RoleMenupositroy.delete({ rId: role.id });
       for (let i = 0; i < ids.length; i++) {
         const T = new RoleMenu();
         T.mId = ids[i] as unknown as string;
-        T.rId = role.id;
         await this.RoleMenupositroy.save(T);
         arr.push(T);
       }
@@ -52,27 +54,4 @@ export class RoleService {
   remove(id: Role['id']) {
     return this.roleRepositroy.delete({ id });
   }
-
-  /**
-   * @description: 添加用户角色 //TODO:后期修改
-   * @return {}
-   */
-  addEmpRole(empRole: EmpRole) {
-    return this.EmpRolepositroy.save(empRole);
-  }
-  /**
-   * @description: 删除用户角色
-   * @return {}
-   */
-  async delEmpRole(empRole: EmpRole) {
-    return await this.EmpRolepositroy.delete({
-      eId: empRole.eId,
-      rId: empRole.rId,
-    });
-  }
-
-  /**
-   * @description: 添加/编辑==角色菜单
-   * @return {}
-   */
 }

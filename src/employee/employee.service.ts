@@ -3,8 +3,11 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BasePage } from 'src/common/database/pageInfo';
 import { CustomException } from 'src/common/exceptions/custom.exception';
+import { EmpRole } from 'src/role/entities/empRole.entity';
+import { Role } from 'src/role/entities/role.entity';
 import { In, Like, Repository } from 'typeorm';
 import { classAssign } from '../common/utils/index';
+import { assignRolesDto } from './dto/create-employee.dto';
 import { Employee } from './entities/employee.entity';
 
 @Injectable()
@@ -12,7 +15,10 @@ export default class EmployeeService {
   // 注入
   @InjectRepository(Employee)
   private readonly employeeRepository: Repository<Employee>;
-
+  @InjectRepository(EmpRole)
+  private readonly EmpRolepositroy: Repository<EmpRole>;
+  @InjectRepository(Role)
+  private readonly Rolepositroy: Repository<EmpRole>;
   /**
    * @description:根据账户名查找用户信息
    * @param {} username
@@ -119,5 +125,31 @@ export default class EmployeeService {
    */
   findAll() {
     return this.employeeRepository.find();
+  }
+
+  /**
+   *
+   * @returns 分派角色
+   */
+  async assignRoles(assignRole: assignRolesDto) {
+    const ids = assignRole.roles;
+    if (!ids) {
+      return false;
+    }
+    const arr: Employee['role'] = [];
+    const employee = await this.findById(assignRole.id);
+    this.EmpRolepositroy.delete({ eId: assignRole.id });
+    const rids = await this.Rolepositroy.find();
+    for (let i = 0; i < ids.length; i++) {
+      const T = new EmpRole();
+      T.rId = ids[i];
+      T.eId = employee.id;
+      T.name = rids.find((r) => r.id == ids[i])?.name ?? '';
+      await this.EmpRolepositroy.save(T);
+      arr.push(T);
+    }
+    employee.role = arr;
+    const curEmp = await this.employeeRepository.save(employee);
+    return curEmp.id ? true : false;
   }
 }
