@@ -134,6 +134,15 @@ export class EmployeeController {
   assignRoles(@Body() assignRole: assignRolesDto) {
     return this.employeeService.assignRoles(assignRole);
   }
+
+  @ApiOperation({
+    summary: '获取用户信息(角色，组织机构）',
+  })
+  @Get('getUserInfo')
+  getUserInfo(@Query('id') id: string) {
+    return this.employeeService.getUserInfo(id);
+  }
+
   @ApiOperation({
     summary: '导出',
   })

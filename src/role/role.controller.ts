@@ -54,4 +54,12 @@ export class RoleController {
   remove(@Query('id') id: string) {
     return this.roleService.remove(id);
   }
+
+  @ApiOperation({
+    summary: '根据ID查询拥有角色',
+  })
+  @Get('getRoles')
+  getRoles(@Query('id') id: string) {
+    return this.roleService.getRoles(id);
+  }
 }

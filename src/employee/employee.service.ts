@@ -7,9 +7,9 @@ import { EmpRole } from 'src/role/entities/empRole.entity';
 import { Role } from 'src/role/entities/role.entity';
 import { In, Like, Repository } from 'typeorm';
 import { classAssign } from '../common/utils/index';
+import { RoleService } from '../role/role.service';
 import { assignRolesDto } from './dto/create-employee.dto';
 import { Employee } from './entities/employee.entity';
-
 @Injectable()
 export default class EmployeeService {
   // 注入
@@ -19,6 +19,8 @@ export default class EmployeeService {
   private readonly EmpRolepositroy: Repository<EmpRole>;
   @InjectRepository(Role)
   private readonly Rolepositroy: Repository<EmpRole>;
+
+  constructor(private readonly roleService: RoleService) {}
   /**
    * @description:根据账户名查找用户信息
    * @param {} username
@@ -27,7 +29,7 @@ export default class EmployeeService {
 
   findByUsername(username: Employee['username']) {
     return this.employeeRepository.findOne({
-      relations: ['organization', 'role'],
+      // relations: ['organization', 'role'],
       where: {
         username,
       },
@@ -43,7 +45,7 @@ export default class EmployeeService {
    */
   async page(page: number, pageSize: number, name = '') {
     const [employeeList, total] = await this.employeeRepository.findAndCount({
-      relations: ['organization', 'role'],
+      // relations: ['organization', 'role'],
       where: {
         name: Like(`%${name}%`),
       },
@@ -136,20 +138,26 @@ export default class EmployeeService {
     if (!ids) {
       return false;
     }
-    const arr: Employee['role'] = [];
-    const employee = await this.findById(assignRole.id);
     this.EmpRolepositroy.delete({ eId: assignRole.id });
-    const rids = await this.Rolepositroy.find();
+    let resAlt: any;
     for (let i = 0; i < ids.length; i++) {
       const T = new EmpRole();
       T.rId = ids[i];
-      T.eId = employee.id;
-      T.name = rids.find((r) => r.id == ids[i])?.name ?? '';
-      await this.EmpRolepositroy.save(T);
-      arr.push(T);
+      T.eId = assignRole.id;
+      resAlt = await this.EmpRolepositroy.save(T);
     }
-    employee.role = arr;
-    const curEmp = await this.employeeRepository.save(employee);
-    return curEmp.id ? true : false;
+
+    return resAlt.id ? true : false;
+  }
+
+  /**
+   *
+   * @returns 获取用户信息
+   */
+
+  async getUserInfo(id: Employee['id']) {
+    const data = await this.findById(id);
+    const role = await this.roleService.getRoles(id);
+    return { ...data, role };
   }
 }

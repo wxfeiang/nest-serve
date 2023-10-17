@@ -21,7 +21,7 @@ export class CreateEmployeeDto {
 }
 export class assignRolesDto {
   @ApiProperty({
-    description: '员工ID',
+    description: '分派员工ID',
     required: true,
   })
   @IsNotEmpty({ message: '员工ID并不能为空！' })

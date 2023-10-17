@@ -14,7 +14,7 @@ export class RoleService {
     @InjectRepository(EmpRole)
     private readonly EmpRolepositroy: Repository<EmpRole>,
     @InjectRepository(RoleMenu)
-    private readonly RoleMenupositroy: Repository<EmpRole>,
+    private readonly RoleMenupositroy: Repository<RoleMenu>,
   ) {}
 
   findAll() {
@@ -53,5 +53,18 @@ export class RoleService {
 
   remove(id: Role['id']) {
     return this.roleRepositroy.delete({ id });
+  }
+
+  /**
+   *
+   * @returns 根据ID查询角色
+   */
+
+  async getRoles(id: string) {
+    return await this.roleRepositroy
+      .createQueryBuilder()
+      .innerJoin(EmpRole, 'empRole', 'role.id = empRole.rId')
+      .where('empRole.eId =' + id)
+      .getMany();
   }
 }

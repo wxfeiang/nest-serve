@@ -5,13 +5,6 @@ import { Employee } from '../../employee/entities/employee.entity';
 @Entity()
 export class EmpRole extends BaseEntity {
   @ApiProperty({
-    description: '角色名称',
-  })
-  @Column({
-    comment: '角色名称',
-  })
-  name: string;
-  @ApiProperty({
     description: '角色ID',
   })
   @Column({
