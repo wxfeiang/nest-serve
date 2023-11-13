@@ -139,7 +139,7 @@ export default class EmployeeService {
       return false;
     }
     this.EmpRolepositroy.delete({ eId: assignRole.id });
-    let resAlt: any;
+    let resAlt: EmpRole;
     for (let i = 0; i < ids.length; i++) {
       const T = new EmpRole();
       T.rId = ids[i];
