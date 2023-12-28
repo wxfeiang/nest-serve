@@ -31,7 +31,8 @@ async function bootstrap() {
   });
   // 监听所有的请求路由，并打印日志
   app.use(logger);
-
+  // 跨域
+  app.enableCors();
   // 启动项目
   await app.listen(getConfig('HTTP').port);
 
