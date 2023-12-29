@@ -30,6 +30,7 @@ export default class EmployeeService {
   findByUsername(username: Employee['username']) {
     return this.employeeRepository.findOne({
       // relations: ['organization', 'role'],
+      relations: ['role'],
       where: {
         username,
       },
