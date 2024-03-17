@@ -3,8 +3,8 @@
  * @Description:   请求方法 组件库自动导入了
  * @Date: 2023-08-28 09:06:24
  * @LastEditors: wxfeiang wxfeiang@qq.com
- * @LastEditTime: 2023-09-23 17:31:43
- * @FilePath: /nest-serve/src/common/utils/https.ts
+ * @LastEditTime: 2024-03-16 22:38:33
+ * @FilePath: /nest-server/src/common/utils/https.ts
  * Copyright (c) 2023 by ${git_name} email: ${git_email}, All Rights Reserved.
  */
 
@@ -49,7 +49,7 @@ export class Axios {
     this.instance.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
         //   if (this.options.text) useErrorStore().resetError();
-        config.headers.Accept = 'application/json';
+        config.headers.Accept = config.headers.Accept || 'application/json';
         //  config.headers.Authorization = `${storage.get(CacheEnum.TOKEN_NAME)}`;
         // FIX: 暂时去掉token 前缀 Bearer ，后端有返回
         return config;
@@ -65,7 +65,6 @@ export class Axios {
         return response;
       },
       (error) => {
-        // console.log('🍾[error]:', error);
         return Promise.reject(error);
       },
     );

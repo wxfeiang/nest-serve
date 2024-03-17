@@ -1,3 +1,4 @@
+import * as cheerio from 'cheerio';
 import { existsSync, mkdirSync } from 'fs';
 import { Logger } from '../logger/log4js';
 /**
@@ -72,4 +73,25 @@ export function listToTree<T extends { id: string; pId: string }>(data: T[]) {
     }
   });
   return parentList;
+}
+
+/**
+ * @description: 解析返回的HTML 乱码
+ * @param {} res
+ * @return {}
+ */
+export function garbledCode(res: any) {
+  const utf8decoder = new TextDecoder('GBK'); // 关键步骤
+  const html = utf8decoder.decode(res);
+  const $ = cheerio.load(html, { decodeEntities: false });
+  return $;
+}
+
+export function resImgs(imgs: any) {
+  const imgArr = [];
+  imgs.each((idx) => {
+    const src = imgs[idx].attr('src');
+    imgArr.push(src);
+  });
+  return imgArr;
 }

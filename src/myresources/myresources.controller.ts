@@ -1,5 +1,6 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Myresource, MyresourceId } from './entities/myresource.entity';
 import { MyresourcesService } from './myresources.service';
 
 @ApiTags('我的资源')
@@ -29,5 +30,36 @@ export class MyresourcesController {
   @Get('picDesc')
   resoDesc(@Query('id') id: string) {
     return this.myresourcesService.resoDesc(id);
+  }
+
+  @ApiOperation({
+    summary: 'tbb网站类型',
+  })
+  @Get('tbbType')
+  tbbType() {
+    return this.myresourcesService.tbbType();
+  }
+  @ApiOperation({
+    summary: 'tbb推荐导航',
+  })
+  @Get('tbbRecommRndedNavigation')
+  tbbRecommRndedNavigation() {
+    return this.myresourcesService.tbbRecommendedNavigation();
+  }
+
+  @ApiOperation({
+    summary: 'tbb根据类型获取类型列表',
+  })
+  @Post('tbbTypeContList')
+  tbbTypeContList(@Body() data: Myresource) {
+    return this.myresourcesService.tbbTypeContList(data);
+  }
+
+  @ApiOperation({
+    summary: 'tbb根据类型获取Id 详情',
+  })
+  @Post('tbbTypeDesc')
+  tbbTypeDesc(@Body() data: MyresourceId) {
+    return this.myresourcesService.tbbTypeDesc(data);
   }
 }
