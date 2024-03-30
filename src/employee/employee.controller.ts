@@ -8,6 +8,7 @@ import {
   Put,
   Query,
   Res,
+  Session,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
@@ -36,10 +37,19 @@ export class EmployeeController {
   })
   @isPublic()
   @Post('login')
-  async login(@Body() employee: CreateEmployeeDto) {
-    const { username, password } = employee;
-    const _employee = await this.employeeService.findByUsername(username);
+  async login(@Session() session, @Body() employee: CreateEmployeeDto) {
+    const { username, password, code } = employee;
+    // 前端传回来的验证码，转换成小写
+    const ncode = code.toLowerCase();
+    //get方式获取的验证码定义的
+    const sessionCode = String(session.code).toLowerCase();
 
+    if (sessionCode !== ncode) {
+      throw new CustomException('验证码错误');
+    }
+
+    // 判断能否通过账号查询出用户信息
+    const _employee = await this.employeeService.findByUsername(username);
     // 判断能否通过账号查询出用户信息
     if (!_employee) {
       // 查不到，返回用户名错误信息
@@ -71,7 +81,6 @@ export class EmployeeController {
   //   name: 'page',
   // })
   async test(@User() user: Pick<Employee, TIdAndUsername>) {
-    console.log('🍵[user]:', user);
     return user;
   }
 

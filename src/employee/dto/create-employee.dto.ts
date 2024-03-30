@@ -18,6 +18,14 @@ export class CreateEmployeeDto {
   @IsNotEmpty({ message: '密码不能为空' })
   //  @IsOptional()  // 仅在它是请求正文的一部分时才进行验证
   password: string;
+
+  @ApiProperty({
+    description: '图形验证码',
+    example: '',
+  })
+  @IsNotEmpty({ message: '图形验证码不能为空' })
+  //  @IsOptional()  // 仅在它是请求正文的一部分时才进行验证
+  code: string;
 }
 export class assignRolesDto {
   @ApiProperty({

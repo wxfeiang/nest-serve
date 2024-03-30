@@ -2,6 +2,7 @@ import {
   Controller,
   Headers,
   Post,
+  Session,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -9,10 +10,29 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { isPublic } from 'src/auth/constants';
 import { getConfig } from 'src/common/utils/ymlConfig';
+import * as svgCaptcha from 'svg-captcha';
 
 @ApiTags('公共模块')
 @Controller('base')
 export class BaseController {
+  @ApiOperation({
+    summary: '获取图形验证码',
+  })
+  @isPublic()
+  @Post('/captchaImage')
+  captchaImage(@Session() session) {
+    const captcha = svgCaptcha.create({
+      size: 4, //验证码长度
+      fontSize: 50,
+      width: 110,
+      height: 38,
+      background: '#fff', //背景颜色
+    });
+
+    session.code = captcha.text; //session保存验证码
+    return captcha.data; // aptcha.data  返回的是svg图
+  }
+
   @ApiOperation({
     summary: '上传本地',
   })

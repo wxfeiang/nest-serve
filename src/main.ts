@@ -5,6 +5,7 @@ import { initializeTransactionalContext } from 'typeorm-transactional';
 import { AppModule } from './app.module';
 
 import { NestExpressApplication } from '@nestjs/platform-express';
+import * as session from 'express-session';
 import { logger } from './common/middleware/logger.middleware';
 import { generateDocmment } from './common/utils/doc';
 import { getConfig } from './common/utils/ymlConfig';
@@ -33,6 +34,16 @@ async function bootstrap() {
   app.use(logger);
   // 跨域
   app.enableCors();
+  // 使用session
+  app.use(
+    session({
+      secret: 'my-secret',
+      resave: false,
+      saveUninitialized: false,
+      rolling: true, //在每次请求时强行设置 cookie，这将重置 cookie 过期时间(默认:false)
+    }),
+  );
+
   // 启动项目
   await app.listen(getConfig('HTTP').port);
 

@@ -4,4 +4,5 @@ import { CreateEmployeeDto } from './create-employee.dto';
 export class UpdateEmployeeDto extends PickType(CreateEmployeeDto, [
   'username',
   'password',
+  'code',
 ]) {}

@@ -60,7 +60,7 @@ export class TransformInterceptor<T>
         // 返回接口数据==
         return {
           data,
-          code: code ?? 200,
+          code: 200,
           message: 'success',
           success: true,
         };
