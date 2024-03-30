@@ -1,6 +1,7 @@
 import {
   CallHandler,
   ExecutionContext,
+  HttpStatus,
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
@@ -20,18 +21,33 @@ export class TransformInterceptor<T>
     context: ExecutionContext,
     next: CallHandler,
   ): Observable<Response<T>> {
-    const req = context.getArgByIndex(1).req;
-    const code = req.statusCode; //响应状态码
+    // const req = context.getArgByIndex(1).req;
+
+    const ctx = context.switchToHttp();
+    const req = ctx.getRequest();
+
+    const res = ctx.getResponse();
+    const code = res.statusCode; //响应状态码
+
     return next.handle().pipe(
       map((data) => {
+        if (req.method === 'POST') {
+          if (res.statusCode === HttpStatus.CREATED) {
+            res.status(HttpStatus.OK);
+          }
+        }
+
         const logFormat = `-----------------响应数据----------------------------
+
         Request original url: ${req.originalUrl}
         Method: ${req.method}
         IP: ${req.ip}
         User: ${JSON.stringify(req.user)}
+        body: ${JSON.stringify(req.body)}
+        query: ${JSON.stringify(req.query)}
+        params: ${JSON.stringify(req.params)}
         Response data:\n ${JSON.stringify(data, null, 2)}
         \n------------------------------------------------`;
-
         //根据状态码，进行日志类型区分
         if (code >= 500) {
           Logger.error(logFormat);

@@ -144,9 +144,9 @@ export class EmployeeController {
   }
 
   @ApiOperation({
-    summary: '导出',
+    summary: '导出用户信息表',
   })
-  @Get('exporeList')
+  @Post('exporeList')
   async exportXlsx(@Res() res: Response) {
     const allData = await this.employeeService.findAll();
     const buf = exportExcel(allData, '员工信息.xlsx');
