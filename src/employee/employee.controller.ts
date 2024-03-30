@@ -45,7 +45,9 @@ export class EmployeeController {
     const sessionCode = String(session.code).toLowerCase();
 
     if (sessionCode !== ncode) {
-      throw new CustomException('验证码错误');
+      throw new CustomException(
+        sessionCode ? '验证码错误' : '验证码过期，请重新获取',
+      );
     }
 
     // 判断能否通过账号查询出用户信息

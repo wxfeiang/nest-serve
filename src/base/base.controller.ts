@@ -24,13 +24,13 @@ export class BaseController {
     const captcha = svgCaptcha.create({
       size: 4, //验证码长度
       fontSize: 50,
-      width: 110,
-      height: 38,
-      background: '#fff', //背景颜色
+      width: 120,
+      height: 30,
+      background: '#f5f5f5', //背景颜色
     });
 
     session.code = captcha.text; //session保存验证码
-    return captcha.data; // aptcha.data  返回的是svg图
+    return { img: captcha.data, text: captcha.text }; // aptcha.data  返回的是svg图
   }
 
   @ApiOperation({
