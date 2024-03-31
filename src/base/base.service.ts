@@ -14,7 +14,7 @@ export class BaseService {
     });
 
     session.code = captcha.text; //session保存验证码
-    return { img: captcha.data, text: captcha.text }; // aptcha.data  返回的是svg图
+    return captcha.data; // aptcha.data  返回的是svg图
   }
   // 本地上传
   async uploadLocal(file, host) {
