@@ -37,11 +37,11 @@ async function bootstrap() {
   // 使用session
   app.use(
     session({
-      secret: 'my-secret',
+      secret: getConfig('SESSION').secret,
       resave: false,
       saveUninitialized: false,
       rolling: true, //在每次请求时强行设置 cookie，这将重置 cookie 过期时间(默认:false),
-      cookie: { maxAge: 3 * 60 * 1000 }, //设置 session 的有效时间，单位毫秒
+      cookie: { maxAge: getConfig('SESSION').maxAge }, //设置 session 的有效时间，单位毫秒
     }),
   );
 

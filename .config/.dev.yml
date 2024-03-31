@@ -21,3 +21,17 @@ MYSQL_CONFIG:
   logging: true # 数据库打印日志
   synchronize: false # 是否开启同步数据表功能
   autoLoadEntities: true # 是否自动加载实体
+
+# session
+SESSION:
+  secret: "wxfeiang@qq.com"
+  maxAge:  1800000  #3 * 60 * 1000
+  maxEmail: 1800000
+
+# email
+EMAIL:
+  host: "smtp.qq.com"
+  port: 587
+  user: "wxfeiang@foxmail.com"
+  pass: "gkebybwwdekdjggc"
+  sendName: 'Nesr.js 测试管理系统'
