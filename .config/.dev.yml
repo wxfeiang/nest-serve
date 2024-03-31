@@ -35,3 +35,9 @@ EMAIL:
   user: "wxfeiang@foxmail.com"
   pass: "gkebybwwdekdjggc"
   sendName: 'Nesr.js 测试管理系统'
+
+
+# throttler
+THROTTLER:
+  ttl: 60,   #1分钟
+  limit: 10, #请求10次

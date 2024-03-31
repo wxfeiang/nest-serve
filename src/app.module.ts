@@ -21,13 +21,14 @@ import { getConfig } from './common/utils/ymlConfig';
 import { EmployeeModule } from './employee/employee.module';
 import { OrganizationModule } from './organization/organization.module';
 
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { DepartmentModule } from './department/department.module';
 import { DictModule } from './dict/dict.module';
+import { EmailModule } from './email/email.module';
 import { IndividualtaxesModule } from './individualtaxes/individualtaxes.module';
 import { MenuModule } from './menu/menu.module';
 import { MyresourcesModule } from './myresources/myresources.module';
 import { RoleModule } from './role/role.module';
-import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -52,6 +53,12 @@ import { EmailModule } from './email/email.module';
         return addTransactionalDataSource(new DataSource(options));
       },
     }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: getConfig('THROTTLER').ttl,
+        limit: getConfig('THROTTLER').limit,
+      },
+    ]),
     EmployeeModule,
     AuthModule,
     BaseModule,
@@ -102,6 +109,10 @@ import { EmailModule } from './email/email.module';
       // Http异常
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
+    },
+    {
+      provide: APP_GUARD, // 限流所有接口
+      useClass: ThrottlerGuard,
     },
   ],
 })

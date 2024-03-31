@@ -6,6 +6,7 @@ import { AppModule } from './app.module';
 
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as session from 'express-session';
+import helmet from 'helmet';
 import { logger } from './common/middleware/logger.middleware';
 import { generateDocmment } from './common/utils/doc';
 import { getConfig } from './common/utils/ymlConfig';
@@ -34,6 +35,7 @@ async function bootstrap() {
   app.use(logger);
   // 跨域
   app.enableCors();
+
   // 使用session
   app.use(
     session({
@@ -44,6 +46,8 @@ async function bootstrap() {
       cookie: { maxAge: getConfig('SESSION').maxAge }, //设置 session 的有效时间，单位毫秒
     }),
   );
+  //防止跨站脚本攻击
+  app.use(helmet());
 
   // 启动项目
   await app.listen(getConfig('HTTP').port);
