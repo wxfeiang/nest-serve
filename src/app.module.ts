@@ -21,6 +21,7 @@ import { getConfig } from './common/utils/ymlConfig';
 import { EmployeeModule } from './employee/employee.module';
 import { OrganizationModule } from './organization/organization.module';
 
+import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { DepartmentModule } from './department/department.module';
 import { DictModule } from './dict/dict.module';
@@ -29,7 +30,6 @@ import { IndividualtaxesModule } from './individualtaxes/individualtaxes.module'
 import { MenuModule } from './menu/menu.module';
 import { MyresourcesModule } from './myresources/myresources.module';
 import { RoleModule } from './role/role.module';
-
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -37,6 +37,8 @@ import { RoleModule } from './role/role.module';
       ignoreEnvFile: true,
       load: [getConfig],
     }),
+    // 任务调度
+    ScheduleModule.forRoot(),
     //数据库
     TypeOrmModule.forRootAsync({
       useFactory() {
