@@ -24,7 +24,6 @@ export class CreateEmployeeDto {
     example: '',
   })
   @IsNotEmpty({ message: '图形验证码不能为空' })
-  example: ''
   verifyCode: string;
 }
 export class assignRolesDto {
