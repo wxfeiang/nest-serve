@@ -25,7 +25,7 @@ export class CreateEmployeeDto {
   })
   @IsNotEmpty({ message: '图形验证码不能为空' })
   //  @IsOptional()  // 仅在它是请求正文的一部分时才进行验证
-  code: string;
+  verifyCode: string;
 }
 export class assignRolesDto {
   @ApiProperty({

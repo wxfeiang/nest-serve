@@ -29,7 +29,7 @@ export class EmployeeController {
   constructor(
     private readonly employeeService: EmployeeService,
     private readonly authService: AuthService,
-  ) {}
+  ) { }
 
   @ApiOperation({
     summary: '员工登陆',
@@ -38,9 +38,9 @@ export class EmployeeController {
   @isPublic()
   @Post('login')
   async login(@Session() session, @Body() employee: CreateEmployeeDto) {
-    const { username, password, code } = employee;
+    const { username, password, verifyCode } = employee;
     // 前端传回来的验证码，转换成小写
-    const ncode = code.toLowerCase();
+    const ncode = verifyCode.toLowerCase();
     //get方式获取的验证码定义的
     const sessionCode = String(session.code).toLowerCase();
 
@@ -63,7 +63,7 @@ export class EmployeeController {
       throw new CustomException('当前员工已禁用');
     }
 
-    // 能查到，对输入的密码进行 md5加密，对比密码，
+    // 能查到，对输入的密码进行 md5加密，对比密码， 可能有大小写
     if (md5(password) !== _employee.password) {
       // 不一致，返回密码错误信息
       throw new CustomException('密码不对，请重新输入');
