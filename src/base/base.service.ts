@@ -14,7 +14,13 @@ export class BaseService {
     });
 
     session.code = captcha.text; //session保存验证码
-    return captcha.data; // aptcha.data  返回的是svg图
+    console.log('🍛', process.env.DATA_SHOW_CODE);
+    const data = {
+      code: captcha.text,
+      data: captcha.data,
+    }
+    // captcha.data
+    return process.env.DATA_SHOW_CODE ? { ...data } : captcha.data; // aptcha.data  返回的是svg图
   }
   // 本地上传
   async uploadLocal(file, host) {

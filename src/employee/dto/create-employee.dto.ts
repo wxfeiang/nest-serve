@@ -13,7 +13,7 @@ export class CreateEmployeeDto {
 
   @ApiProperty({
     description: '账户名称-登陆时的密码',
-    example: '123456',
+    example: '123456admin'
   })
   @IsNotEmpty({ message: '密码不能为空' })
   //  @IsOptional()  // 仅在它是请求正文的一部分时才进行验证
@@ -24,7 +24,7 @@ export class CreateEmployeeDto {
     example: '',
   })
   @IsNotEmpty({ message: '图形验证码不能为空' })
-  //  @IsOptional()  // 仅在它是请求正文的一部分时才进行验证
+  example: ''
   verifyCode: string;
 }
 export class assignRolesDto {

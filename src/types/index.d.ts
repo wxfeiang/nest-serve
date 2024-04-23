@@ -21,6 +21,7 @@ declare global {
     interface ProcessEnv {
       RUNNING: string;
       id: Employee['id'];
+      DATA_SHOW_CODE: boolean
     }
   }
 }

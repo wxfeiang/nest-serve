@@ -34,7 +34,7 @@ import { RoleModule } from './role/role.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      ignoreEnvFile: true,
+      ignoreEnvFile: false,  // 不忽略环境变量文件
       load: [getConfig],
     }),
     // 任务调度
@@ -129,4 +129,4 @@ import { RoleModule } from './role/role.module';
     },
   ],
 })
-export class AppModule {}
+export class AppModule { }
