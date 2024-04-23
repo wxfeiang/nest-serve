@@ -17,7 +17,7 @@ import { IndividualtaxesService } from './individualtaxes.service';
 export class IndividualtaxesController {
   constructor(
     private readonly individualtaxesService: IndividualtaxesService,
-  ) {}
+  ) { }
 
   @ApiOperation({
     summary: '新增记录',

@@ -40,4 +40,9 @@ export class EmailService {
       throw new CustomException(error);
     }
   }
+
+  async teskSendTest(){
+
+       console.log('🍖=========');
+  }
 }

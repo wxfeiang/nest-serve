@@ -6,7 +6,7 @@ import { MyresourcesService } from './myresources.service';
 @ApiTags('我的资源')
 @Controller('myresources')
 export class MyresourcesController {
-  constructor(private readonly myresourcesService: MyresourcesService) {}
+  constructor(private readonly myresourcesService: MyresourcesService) { }
 
   @ApiOperation({
     summary: '爬取类型',
@@ -61,5 +61,15 @@ export class MyresourcesController {
   @Post('tbbTypeDesc')
   tbbTypeDesc(@Body() data: MyresourceId) {
     return this.myresourcesService.tbbTypeDesc(data);
+  }
+
+
+
+  @ApiOperation({
+    summary: '获取快手 hxx 视频',
+  })
+  @Post('kshxx')
+  kshxx() {
+    return this.myresourcesService.kshxx()
   }
 }

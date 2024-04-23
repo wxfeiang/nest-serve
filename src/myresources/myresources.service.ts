@@ -8,6 +8,8 @@ import { changeType } from './utils';
 export class MyresourcesService {
   private readonly baseUrl = 'https://www.cfddd.com';
   private readonly tbbUrl = 'https://94.131.13.149:2828';
+  private readonly KsUrl = 'https://www.kuaishou.com/profile/3xizsn5vfwfmwsa';
+
   private readonly ttbAccept =
     'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7';
 
@@ -250,5 +252,68 @@ export class MyresourcesService {
 
     return { name, list };
   }
+
+
+  async kshxx() {
+    const params =
+    {
+      "operationName": "visionProfilePhotoList",
+      "variables": {
+        "userId": "3xizsn5vfwfmwsa",
+        "pcursor": "",
+        "page": "profile"
+      },
+      "query":
+        "fragment photoContent on PhotoEntity {\n  __typename\n  id\n  duration\n  caption\n  originCaption\n  likeCount\n  viewCount\n  commentCount\n  realLikeCount\n  coverUrl\n  photoUrl\n  photoH265Url\n  manifest\n  manifestH265\n  videoResource\n  coverUrls {\n    url\n    __typename\n  }\n  timestamp\n  expTag\n  animatedCoverUrl\n  distance\n  videoRatio\n  liked\n  stereoType\n  profileUserTopPhoto\n  musicBlocked\n  riskTagContent\n  riskTagUrl\n}\n\nfragment recoPhotoFragment on recoPhotoEntity {\n  __typename\n  id\n  duration\n  caption\n  originCaption\n  likeCount\n  viewCount\n  commentCount\n  realLikeCount\n  coverUrl\n  photoUrl\n  photoH265Url\n  manifest\n  manifestH265\n  videoResource\n  coverUrls {\n    url\n    __typename\n  }\n  timestamp\n  expTag\n  animatedCoverUrl\n  distance\n  videoRatio\n  liked\n  stereoType\n  profileUserTopPhoto\n  musicBlocked\n  riskTagContent\n  riskTagUrl\n}\n\nfragment feedContent on Feed {\n  type\n  author {\n    id\n    name\n    headerUrl\n    following\n    headerUrls {\n      url\n      __typename\n    }\n    __typename\n  }\n  photo {\n    ...photoContent\n    ...recoPhotoFragment\n    __typename\n  }\n  canAddComment\n  llsid\n  status\n  currentPcursor\n  tags {\n    type\n    name\n    __typename\n  }\n  __typename\n}\n\nquery visionProfilePhotoList($pcursor: String, $userId: String, $page: String, $webPageArea: String) {\n  visionProfilePhotoList(pcursor: $pcursor, userId: $userId, page: $page, webPageArea: $webPageArea) {\n    result\n    llsid\n    webPageArea\n    feeds {\n      ...feedContent\n      __typename\n    }\n    hostName\n    pcursor\n    __typename\n  }\n}\n"
+    }
+
+    const res: any = await http.request({
+      url: `https://www.kuaishou.com/graphql`,
+      method: 'post',
+      data: params,
+      // headers: {
+      //   Accept: this.ttbAccept,
+      // },
+      // responseType: 'arraybuffer', // 关键步骤
+      // responseEncoding: 'utf8',
+    });
+
+    // const $ = cheerio.load(res, { decodeEntities: false }); //
+
+    // const nkData = [];
+
+    // console.log('🥞', $('script').text());
+    // $('.user-detail-item').each((idx, ele) => {
+
+    //   const data = {
+    //     name: $(ele).find('p').text(),
+    //     cont: $(ele).find('H3').text(),
+    //   }
+    //   nkData.push(data)
+
+    // })
+    // const videList = [];
+    // $('.video-card').each((idx, ele) => {
+
+    //   const data = {
+    //     imgurl: $(ele + ' .poster img').attr('src'),
+    //     like: $(ele + ' .info-text"').text(),
+    //   };
+    //   videList.push(data);
+    // })
+    // const profile = {
+    //   avatar: $('.user-detail .avatar img').attr('src'),
+    //   nkNmae: $('.user-name span').text(),
+    //   nkdesc: $('.user-desc').text(),
+    //   follow: $('.follow') ? true : false,
+    //   nkData,
+    //   videList,
+    //   text: JSON.parse($('script').text())
+    // }
+
+    return res;
+  }
+  //https://www.kuaishou.com/graphql
+
 }
 //  TODO: 检索不好区分类型
