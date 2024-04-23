@@ -12,7 +12,7 @@ export class MenuService {
   constructor(
     @InjectRepository(Menu)
     private readonly MenuRpositroy: Repository<Menu>,
-  ) {}
+  ) { }
 
   create(createMenuDto: CreateMenuDto) {
     return this.MenuRpositroy.save(createMenuDto);
