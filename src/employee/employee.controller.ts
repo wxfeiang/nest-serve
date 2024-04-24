@@ -103,7 +103,7 @@ export class EmployeeController {
   })
   @Post()
   create(@Body() employee: Employee) {
-    employee.password = md5('123456'); // 创建初始密码，并对其进行md5加密
+    employee.password = md5(employee.password); // 创建初始密码，并对其进行md5加密
     return this.employeeService.create(employee);
   }
 

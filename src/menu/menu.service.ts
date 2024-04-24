@@ -21,7 +21,7 @@ export class MenuService {
   findAll() {
     return this.MenuRpositroy.find({
       order: {
-        sort: 'DESC',
+        rank: 'DESC',
       },
     });
   }
@@ -54,14 +54,17 @@ export class MenuService {
     //   role_menu AS r
     //   WHERE
     //    m.id = r.m_id;
-
     //   `;
-    // . 动态ID
+    // 动态ID
+    // status = 1 启用
+    console.log('🎂=======cc');
     return listToTree(
-      await this.MenuRpositroy.createQueryBuilder()
+      await this.MenuRpositroy
+        .createQueryBuilder()
         .innerJoin(RoleMenu, 'roleMenu', 'menu.id = roleMenu.mId')
         .where('roleMenu.rId =' + rId)
-        .getMany(),
+        .andWhere('menu.status = 1')
+        .getMany()
     );
   }
 }

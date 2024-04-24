@@ -17,7 +17,7 @@ MYSQL_CONFIG:
   port: 8836
   username: "root" # 数据库链接用户名
   password: "admin123456***" # 数据库链接密码
-  database: "nest-study" # 数据库名
+  database: "nest-serve" # 数据库名
   logging: true # 数据库打印日志
   synchronize: false # 是否开启同步数据表功能
   autoLoadEntities: true # 是否自动加载实体
