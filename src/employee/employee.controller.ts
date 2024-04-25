@@ -18,7 +18,7 @@ import { User } from 'src/common/decorators/user.decorator';
 import { CustomException } from 'src/common/exceptions/custom.exception';
 import { exportExcel } from 'src/common/utils/fileExport';
 import { AuthService } from '../auth/auth.service';
-import { TIdAndUsername } from '../types/index';
+import { PageList, TIdAndUsername } from '../types/index';
 import { CreateEmployeeDto, assignRolesDto } from './dto/create-employee.dto';
 import EmployeeService from './employee.service';
 import { Employee } from './entities/employee.entity';
@@ -33,7 +33,7 @@ export class EmployeeController {
 
   @ApiOperation({
     summary: '员工登陆',
-    description: '登陆获取token',
+    description: '登陆获取token,返回当前用户信息',
   })
   @isPublic()
   @Post('login')
@@ -86,17 +86,15 @@ export class EmployeeController {
     return user;
   }
 
+
   @ApiOperation({
     summary: '查询员工列表',
   })
-  @Get('/list')
-  page(
-    @Query('page') page: number,
-    @Query('pageSize') pageSize: number,
-    @Query('name') name?: string,
-  ) {
-    return this.employeeService.page(page, pageSize, name);
+  @Post('/list')
+  list(@Body() employee: Employee & PageList) {
+    return this.employeeService.list(employee);
   }
+
 
   @ApiOperation({
     summary: '创建员工',

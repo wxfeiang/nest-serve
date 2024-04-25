@@ -9,7 +9,10 @@ declare namespace NodeJS {
 }
 
 export type TIdAndUsername = 'id' | 'username';
-
+export interface PageList {
+  currentPage: number
+  pageSize: number
+}
 declare module 'express' {
   interface Request {
     user: Pick<Employee, TIdAndUsername>;

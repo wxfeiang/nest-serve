@@ -3,9 +3,9 @@
  */
 export class BasePage<T> {
   constructor(
-    private page: number,
+    private currentPage: number,
     private pageSize: number,
     private total: number,
-    private records: T[],
-  ) {}
+    private list: T[],
+  ) { }
 }

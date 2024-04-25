@@ -5,6 +5,7 @@ import { BasePage } from 'src/common/database/pageInfo';
 import { CustomException } from 'src/common/exceptions/custom.exception';
 import { EmpRole } from 'src/role/entities/empRole.entity';
 import { Role } from 'src/role/entities/role.entity';
+import { PageList } from 'src/types';
 import { In, Like, Repository } from 'typeorm';
 import { classAssign } from '../common/utils/index';
 import { RoleService } from '../role/role.service';
@@ -20,7 +21,7 @@ export default class EmployeeService {
   @InjectRepository(Role)
   private readonly Rolepositroy: Repository<EmpRole>;
 
-  constructor(private readonly roleService: RoleService) {}
+  constructor(private readonly roleService: RoleService) { }
   /**
    * @description:根据账户名查找用户信息
    * @param {} username
@@ -38,26 +39,24 @@ export default class EmployeeService {
   }
 
   /**
-   *
-   * @param page 页数
-   * @param pageSize 每页多少条
-   * @param name 用户名
-   * @returns 分页
+   * @param employee Employee
+   * @returns 员工列表
    */
-  async page(page: number, pageSize: number, name = '') {
+  async list(employee: Employee & PageList) {
+
+    const { currentPage, pageSize, name } = employee;
     const [employeeList, total] = await this.employeeRepository.findAndCount({
       // relations: ['organization', 'role'],
       where: {
-        name: Like(`%${name}%`),
+        name: Like(`%${name || ""}%`),
       },
-      skip: (page - 1) * pageSize,
+      skip: (currentPage - 1) * pageSize,
       take: pageSize,
     });
-    return new BasePage(page, pageSize, total, employeeList);
+    return new BasePage(currentPage, pageSize, total, employeeList);
   }
 
   /**
-   *
    * @param employee Employee
    * @returns 创建员工
    */
