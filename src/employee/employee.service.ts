@@ -115,6 +115,9 @@ export default class EmployeeService {
    * @returns 设置员工状态  启用 - 禁用
    */
   async setStatus(ids: string[], status: number) {
+    if (typeof ids === 'string') {
+      ids = [ids]
+    }
     const employee = new Employee();
     employee.status = status;
     return !!(await this.employeeRepository.update({ id: In(ids) }, employee))
