@@ -44,9 +44,9 @@ export default class EmployeeService {
    */
   async list(employee: Employee & PageList) {
 
-    const { currentPage, pageSize, name } = employee;
+    const { currentPage = 1, pageSize = 1000, name } = employee;
     const [employeeList, total] = await this.employeeRepository.findAndCount({
-      // relations: ['organization', 'role'],
+      relations: ['organization', 'role'],
       where: {
         name: Like(`%${name || ""}%`),
       },
@@ -70,6 +70,7 @@ export default class EmployeeService {
    */
   async findById(id: string) {
     const employee = await this.employeeRepository.findOneBy({ id });
+
     if (!employee) {
       throw new CustomException('id不存在');
     }
@@ -161,6 +162,7 @@ export default class EmployeeService {
   async getUserInfo(id: Employee['id']) {
     const data = await this.findById(id);
     const role = await this.roleService.getRoles(id);
+    delete data['password']
     return { ...data, role };
   }
 }

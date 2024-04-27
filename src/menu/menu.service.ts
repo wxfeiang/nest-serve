@@ -57,7 +57,6 @@ export class MenuService {
     //   `;
     // 动态ID
     // status = 1 启用
-    console.log('🎂=======cc');
     return listToTree(
       await this.MenuRpositroy
         .createQueryBuilder()

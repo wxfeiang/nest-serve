@@ -13,10 +13,12 @@ export class Menu extends BaseEntity {
   })
   path: string;
   @ApiProperty({
+    required: true,
     description: '路由名称（必须唯一并且和当前路由component字段对应的页面里用defineOptions包起来的name保持一致'
   })
   @Column({
     comment: '路由名称',
+
   })
   name: string;
 
@@ -47,17 +49,23 @@ export class Menu extends BaseEntity {
   @ApiProperty({
     description: '菜单名称',
     required: true,
+
   })
   @Column({
     comment: '菜单名称',
     unique: true,
+
   })
   title: string;
 
+  @ApiProperty({
+    description: '图标',
+
+  })
   @Column({
     comment: '菜单类型',
     unique: true,
-    // enum: '[目录 0,菜单1,按钮 2]',
+    enum: '[目录 0,菜单1,按钮2]'
   })
   type: number;
 
@@ -79,6 +87,7 @@ export class Menu extends BaseEntity {
 
   @ApiProperty({
     description: '状态',
+    example: 1,
   })
   @Column({
     comment: '状态 0:禁用，1:正常',
@@ -87,6 +96,7 @@ export class Menu extends BaseEntity {
 
   @ApiProperty({
     description: '是否显示',
+    example: true,
   })
   @Column({
     comment: '是否显示',
@@ -113,7 +123,7 @@ export class Menu extends BaseEntity {
 
 
   @ApiProperty({
-    description: '是否缓存 0:是，1:否',
+    description: '是否缓存 0:是,1:否',
   })
   @Column({
     comment: '是否缓存',
@@ -164,13 +174,6 @@ export class Menu extends BaseEntity {
     comment: '是否外链',
   })
   frameLoading: boolean;
-
-
-
-
-
-
-
 
   @ApiProperty({
     description: '权限字符',

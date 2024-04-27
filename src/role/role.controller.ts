@@ -8,13 +8,14 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { pageListEntity } from 'src/common/database/pageListEntity';
 import { Role } from './entities/role.entity';
 import { RoleService } from './role.service';
 
 @ApiTags('角色管理')
 @Controller('role')
 export class RoleController {
-  constructor(private readonly roleService: RoleService) {}
+  constructor(private readonly roleService: RoleService) { }
 
   @ApiOperation({
     summary: '创建角色',
@@ -31,6 +32,15 @@ export class RoleController {
   findAll() {
     return this.roleService.findAll();
   }
+  @ApiOperation({
+    summary: '获取全部角色列表',
+  })
+
+  @Post('list')
+  findAllList(@Body() role: Role & pageListEntity) {
+    return this.roleService.findAllList(role);
+  }
+
 
   @ApiOperation({
     summary: 'ID查询角色-菜单关系',
@@ -47,9 +57,12 @@ export class RoleController {
   update(@Body() role: Role) {
     return this.roleService.update(role);
   }
+
+
   @ApiOperation({
     summary: '删除角色',
   })
+
   @Delete()
   remove(@Query('id') id: string) {
     return this.roleService.remove(id);

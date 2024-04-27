@@ -69,3 +69,4 @@ export class BaseEntity {
     this.updateUser = process.env.id;
   }
 }
+
