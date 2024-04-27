@@ -7,7 +7,6 @@ import { pageListEntity } from 'src/common/database/pageListEntity';
 import { EmpRole } from './entities/empRole.entity';
 import { Role } from './entities/role.entity';
 import { RoleMenu } from './entities/roleMenu.entity';
-
 @Injectable()
 export class RoleService {
   constructor(
@@ -17,23 +16,20 @@ export class RoleService {
     private readonly EmpRolepositroy: Repository<EmpRole>,
     @InjectRepository(RoleMenu)
     private readonly RoleMenupositroy: Repository<RoleMenu>,
-  ) { }
+  ) {}
 
   findAll() {
     return this.roleRepositroy.find(); // 提
   }
 
-
-
   async findAllList(role: Role & pageListEntity) {
     const { currentPage = 1, pageSize = 1000, name } = role;
     const [employeeList, total] = await this.roleRepositroy.findAndCount({
-
       where: {
-        name: Like(`%${name || ""}%`),
+        name: Like(`%${name || ''}%`),
       },
       skip: (currentPage - 1) * pageSize,
-      take: pageSize
+      take: pageSize,
     });
     return new BasePage(currentPage, pageSize, total, employeeList);
   }

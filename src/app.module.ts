@@ -30,6 +30,7 @@ import { IndividualtaxesModule } from './individualtaxes/individualtaxes.module'
 import { MenuModule } from './menu/menu.module';
 import { MyresourcesModule } from './myresources/myresources.module';
 import { RoleModule } from './role/role.module';
+import { ServeresourceModule } from './serveresource/serveresource.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -83,6 +84,7 @@ import { RoleModule } from './role/role.module';
     MenuModule,
     IndividualtaxesModule,
     EmailModule,
+    ServeresourceModule,
   ],
   // controllers: [AppController],
   controllers: [],
