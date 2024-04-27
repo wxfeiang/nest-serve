@@ -3,7 +3,6 @@ import { Column, Entity } from 'typeorm';
 import { BaseEntity } from '../../common/database/baseEntity';
 @Entity()
 export class Menu extends BaseEntity {
-
   @ApiProperty({
     description: '路由路径',
     required: true,
@@ -14,14 +13,13 @@ export class Menu extends BaseEntity {
   path: string;
   @ApiProperty({
     required: true,
-    description: '路由名称（必须唯一并且和当前路由component字段对应的页面里用defineOptions包起来的name保持一致'
+    description:
+      '路由名称（必须唯一并且和当前路由component字段对应的页面里用defineOptions包起来的name保持一致',
   })
   @Column({
     comment: '路由名称',
-
   })
   name: string;
-
 
   @ApiProperty({
     description: '路由参数',
@@ -49,23 +47,20 @@ export class Menu extends BaseEntity {
   @ApiProperty({
     description: '菜单名称',
     required: true,
-
   })
   @Column({
     comment: '菜单名称',
     unique: true,
-
   })
   title: string;
 
   @ApiProperty({
     description: '图标',
-
   })
   @Column({
     comment: '菜单类型',
     unique: true,
-    enum: '[目录 0,菜单1,按钮2]'
+    enum: '[目录 0,菜单1,按钮2]',
   })
   type: number;
 
@@ -103,7 +98,6 @@ export class Menu extends BaseEntity {
   })
   showLink: boolean;
 
-
   @ApiProperty({
     description: '是否显示父级菜单',
   })
@@ -120,13 +114,11 @@ export class Menu extends BaseEntity {
   })
   rank: number;
 
-
-
   @ApiProperty({
     description: '是否缓存 0:是,1:否',
   })
   @Column({
-    comment: '是否缓存',
+    comment: '是否缓存 0:是,1:否',
   })
   keepAlive: boolean;
 
@@ -139,24 +131,22 @@ export class Menu extends BaseEntity {
   hiddenTag: boolean;
 
   @ApiProperty({
-    description: '显示在标签页的最大数量，需满足后面的条件：不显示在菜单中的路由并且是通过query或params传参模式打开的页面。在完整版全局搜dynamicLevel即可查看代码演示',
+    description:
+      '显示在标签页的最大数量，需满足后面的条件：不显示在菜单中的路由并且是通过query或params传参模式打开的页面。在完整版全局搜dynamicLevel即可查看代码演示',
   })
   @Column({
     comment: 'dynamicLevel',
   })
   dynamicLevel: number;
 
-
   @ApiProperty({
-    description: ' 将某个菜单激活（主要用于通过query或params传参的路由，当它们通过配置showLink: false后不在菜单中显示，就不会有任何菜单高亮，而通过设置activePath指定激活菜单即可获得高亮，activePath为指定激活菜单的path）',
+    description:
+      ' 将某个菜单激活（主要用于通过query或params传参的路由，当它们通过配置showLink: false后不在菜单中显示，就不会有任何菜单高亮，而通过设置activePath指定激活菜单即可获得高亮，activePath为指定激活菜单的path）',
   })
   @Column({
     comment: '前菜单名称或自定义信息禁止添加到标签页',
   })
   activePath: string;
-
-
-
 
   @ApiProperty({
     description: '需要内嵌的iframe链接地址',
@@ -165,7 +155,6 @@ export class Menu extends BaseEntity {
     comment: '是否外链',
   })
   frameSrc: string;
-
 
   @ApiProperty({
     description: '内嵌的iframe页面是否开启首次加载动画',
@@ -182,7 +171,6 @@ export class Menu extends BaseEntity {
     comment: '权限字符',
   })
   auths: string;
-
 
   @ApiProperty({
     description: '父ID',

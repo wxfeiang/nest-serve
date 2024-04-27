@@ -29,7 +29,7 @@ export class EmployeeController {
   constructor(
     private readonly employeeService: EmployeeService,
     private readonly authService: AuthService,
-  ) { }
+  ) {}
 
   @ApiOperation({
     summary: '员工登陆',
@@ -45,6 +45,7 @@ export class EmployeeController {
     const sessionCode = String(session.code).toLowerCase();
 
     if (sessionCode !== ncode) {
+      session.code = null;
       throw new CustomException(
         sessionCode ? '验证码错误' : '验证码过期，请重新获取',
       );
@@ -86,7 +87,6 @@ export class EmployeeController {
     return user;
   }
 
-
   @ApiOperation({
     summary: '查询员工列表',
   })
@@ -94,7 +94,6 @@ export class EmployeeController {
   list(@Body() employee: Employee & PageList) {
     return this.employeeService.list(employee);
   }
-
 
   @ApiOperation({
     summary: '创建员工',
