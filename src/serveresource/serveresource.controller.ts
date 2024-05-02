@@ -9,13 +9,15 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { pageListEntity } from 'src/common/database/pageListEntity';
+import { pageInfo } from 'src/common/decorators/pageInfo.decorator';
+import { QueryServeresourceDto } from './dto/query-serveresource.dto';
 import { Serveresource } from './entities/serveresource.entity';
 import { ServeresourceService } from './serveresource.service';
 
 @ApiTags('服务器资源管理')
 @Controller('serveresource')
 export class ServeresourceController {
-  constructor(private readonly serveresourceService: ServeresourceService) {}
+  constructor(private readonly serveresourceService: ServeresourceService) { }
 
   @ApiOperation({
     summary: '创建资源',
@@ -29,8 +31,8 @@ export class ServeresourceController {
     summary: '资源列表',
   })
   @Post('list')
-  list(@Body() createServeresourceDto: Serveresource & pageListEntity) {
-    return this.serveresourceService.list(createServeresourceDto);
+  list(@Body() ServeresourceDto: QueryServeresourceDto, @pageInfo() pageInfo: pageListEntity) {
+    return this.serveresourceService.list({ ...ServeresourceDto, ...pageInfo });
   }
   @ApiOperation({
     summary: '根据id查询',
