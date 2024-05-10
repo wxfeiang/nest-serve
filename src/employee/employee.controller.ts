@@ -3,23 +3,25 @@ import {
   Controller,
   Delete,
   Get,
+  Header,
   Param,
   Post,
   Put,
   Query,
   Res,
-  Session,
+  Session
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import * as md5 from 'md5';
 import { isPublic } from 'src/auth/constants';
+import { pageInfo } from 'src/common/decorators/pageInfo.decorator';
 import { User } from 'src/common/decorators/user.decorator';
 import { CustomException } from 'src/common/exceptions/custom.exception';
-import { exportExcel } from 'src/common/utils/fileExport';
 import { AuthService } from '../auth/auth.service';
 import { PageList, TIdAndUsername } from '../types/index';
-import { CreateEmployeeDto, assignRolesDto } from './dto/create-employee.dto';
+
+import { LoginEmployeeDto, QueryEmployeeDto, assignRolesDto } from './dto/query-employee.dto';
 import EmployeeService from './employee.service';
 import { Employee } from './entities/employee.entity';
 
@@ -29,7 +31,7 @@ export class EmployeeController {
   constructor(
     private readonly employeeService: EmployeeService,
     private readonly authService: AuthService,
-  ) {}
+  ) { }
 
   @ApiOperation({
     summary: '员工登陆',
@@ -37,7 +39,7 @@ export class EmployeeController {
   })
   @isPublic()
   @Post('login')
-  async login(@Session() session, @Body() employee: CreateEmployeeDto) {
+  async login(@Session() session, @Body() employee: LoginEmployeeDto) {
     const { username, password, verifyCode } = employee;
     // 前端传回来的验证码，转换成小写
     const ncode = verifyCode.toLowerCase();
@@ -91,8 +93,8 @@ export class EmployeeController {
     summary: '查询员工列表',
   })
   @Post('/list')
-  list(@Body() employee: Employee & PageList) {
-    return this.employeeService.list(employee);
+  list(@Body() employee: QueryEmployeeDto, @pageInfo() pageInfo: PageList) {
+    return this.employeeService.list({ ...employee, ...pageInfo });
   }
 
   @ApiOperation({
@@ -154,14 +156,12 @@ export class EmployeeController {
   @ApiOperation({
     summary: '导出用户信息表',
   })
+
+  @Header('Content-Type', 'application/json')
+  @Header('Content-Disposition', 'attachment; filename=' + encodeURIComponent('员工信息.xlsx') + '')
   @Post('exporeList')
-  async exportXlsx(@Res() res: Response) {
-    const allData = await this.employeeService.findAll();
-    const buf = exportExcel(allData, '员工信息.xlsx');
-    res.set(
-      'Content-Disposition',
-      'attachment; filename=' + encodeURIComponent('员工信息.xlsx') + '',
-    );
-    res.send(buf);
+  async exportXlsx(@Res({ passthrough: true }) res: Response, @Body() employee: Employee) {
+    const file = await this.employeeService.exportEmployeeXlsx(employee);
+    res.send(file);
   }
 }

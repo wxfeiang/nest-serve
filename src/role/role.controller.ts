@@ -9,6 +9,8 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { pageListEntity } from 'src/common/database/pageListEntity';
+import { pageInfo } from 'src/common/decorators/pageInfo.decorator';
+import { QueryRole } from './dto/query-role.dto';
 import { Role } from './entities/role.entity';
 import { RoleService } from './role.service';
 
@@ -37,8 +39,8 @@ export class RoleController {
   })
 
   @Post('list')
-  findAllList(@Body() role: Role & pageListEntity) {
-    return this.roleService.findAllList(role);
+  findAllList(@Body() role: QueryRole, @pageInfo() pageInfo: pageListEntity) {
+    return this.roleService.findAllList({ ...role, ...pageInfo });
   }
 
 

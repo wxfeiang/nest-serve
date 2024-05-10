@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BasePage } from 'src/common/database/pageInfo';
-import { pageListEntity } from 'src/common/database/pageListEntity';
 import { Like, Repository } from 'typeorm';
+import { QueryServeresourceDto } from './dto/query-serveresource.dto';
 import { Serveresource } from './entities/serveresource.entity';
 
 @Injectable()
@@ -10,14 +10,14 @@ export class ServeresourceService {
   constructor(
     @InjectRepository(Serveresource)
     private readonly serveresourceSitory: Repository<Serveresource>,
-  ) {}
+  ) { }
 
   create(createServeresourceDto: Serveresource) {
     return this.serveresourceSitory.save(createServeresourceDto);
   }
 
-  async list(serveresource: Serveresource & pageListEntity) {
-    const { currentPage = 1, pageSize = 1000, name } = serveresource;
+  async list(serveresource: QueryServeresourceDto) {
+    const { currentPage, pageSize, name } = serveresource;
     const [employeeList, total] = await this.serveresourceSitory.findAndCount({
       where: {
         name: Like(`%${name || ''}%`),

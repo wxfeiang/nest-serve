@@ -15,8 +15,7 @@ interface Response<T> {
 
 @Injectable()
 export class TransformInterceptor<T>
-  implements NestInterceptor<T, Response<T>>
-{
+  implements NestInterceptor<T, Response<T>> {
   intercept(
     context: ExecutionContext,
     next: CallHandler,
@@ -32,6 +31,7 @@ export class TransformInterceptor<T>
     return next.handle().pipe(
       map((data) => {
         if (req.method === 'POST') {
+
           if (res.statusCode === HttpStatus.CREATED) {
             res.status(HttpStatus.OK);
           }

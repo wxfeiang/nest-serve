@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
 
 import { BasePage } from 'src/common/database/pageInfo';
-import { pageListEntity } from 'src/common/database/pageListEntity';
+import { QueryRole } from './dto/query-role.dto';
 import { EmpRole } from './entities/empRole.entity';
 import { Role } from './entities/role.entity';
 import { RoleMenu } from './entities/roleMenu.entity';
@@ -16,14 +16,14 @@ export class RoleService {
     private readonly EmpRolepositroy: Repository<EmpRole>,
     @InjectRepository(RoleMenu)
     private readonly RoleMenupositroy: Repository<RoleMenu>,
-  ) {}
+  ) { }
 
   findAll() {
     return this.roleRepositroy.find(); // 提
   }
 
-  async findAllList(role: Role & pageListEntity) {
-    const { currentPage = 1, pageSize = 1000, name } = role;
+  async findAllList(role: QueryRole) {
+    const { currentPage, pageSize, name } = role;
     const [employeeList, total] = await this.roleRepositroy.findAndCount({
       where: {
         name: Like(`%${name || ''}%`),

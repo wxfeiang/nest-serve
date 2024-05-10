@@ -3,13 +3,14 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BasePage } from 'src/common/database/pageInfo';
 import { CustomException } from 'src/common/exceptions/custom.exception';
+import { exportExcel } from 'src/common/utils/fileExport';
 import { EmpRole } from 'src/role/entities/empRole.entity';
 import { Role } from 'src/role/entities/role.entity';
-import { PageList } from 'src/types';
 import { In, Like, Repository } from 'typeorm';
 import { classAssign } from '../common/utils/index';
 import { RoleService } from '../role/role.service';
-import { assignRolesDto } from './dto/create-employee.dto';
+
+import { QueryEmployeeDto, assignRolesDto } from './dto/query-employee.dto';
 import { Employee } from './entities/employee.entity';
 @Injectable()
 export default class EmployeeService {
@@ -38,13 +39,12 @@ export default class EmployeeService {
     });
   }
 
-  /**
+  /**s
    * @param employee Employee
    * @returns 员工列表
    */
-  async list(employee: Employee & PageList) {
-
-    const { currentPage = 1, pageSize = 1000, name } = employee;
+  async list(employee: QueryEmployeeDto) {
+    const { currentPage, pageSize, name } = employee;
     const [employeeList, total] = await this.employeeRepository.findAndCount({
       relations: ['organization', 'role'],
       where: {
@@ -165,4 +165,19 @@ export default class EmployeeService {
     delete data['password']
     return { ...data, role };
   }
+
+  /**
+    *
+    * @returns 导出员工信息
+    */
+
+  async exportEmployeeXlsx(employee: Employee) {
+    // 根据条件查询
+    const allData = await this.employeeRepository.find();
+    const buf = exportExcel(allData, '员工信息.xlsx');
+    return buf
+  }
+
+
+
 }

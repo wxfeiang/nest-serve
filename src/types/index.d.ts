@@ -9,6 +9,7 @@ declare namespace NodeJS {
 }
 
 export type TIdAndUsername = 'id' | 'username';
+export type TPassword = 'password';
 export interface PageList {
   currentPage: number
   pageSize: number

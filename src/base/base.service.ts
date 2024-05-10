@@ -12,9 +12,7 @@ export class BaseService {
       height: 30,
       background: '#f5f5f5', //背景颜色
     });
-
     session.code = captcha.text; //session保存验证码
-    console.log('🍛', process.env.DATA_SHOW_CODE);
     const data = {
       code: captcha.text,
       data: captcha.data,
