@@ -62,7 +62,7 @@ export class Menu extends BaseEntity {
     unique: true,
     enum: '[目录 0,菜单1,按钮2]',
   })
-  type: number;
+  menuType: number;
 
   @ApiProperty({
     description: '图标',

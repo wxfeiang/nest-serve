@@ -15,5 +15,5 @@ export class CreateMenuDto extends Menu {
     description: '类型',
   })
   @IsNotEmpty({ message: '类型不能为空！' })
-  type: number;
+  menuType: number;
 }
