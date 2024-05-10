@@ -23,10 +23,20 @@ export class RoleService {
   }
 
   async findAllList(role: QueryRole) {
-    const { currentPage, pageSize, name } = role;
+    const { currentPage, pageSize, ...surPlus } = role;
+    const arr = Object.keys(surPlus);
+    const whereData = {}
+    if (arr?.length > 0) {
+      arr.forEach((item) => {
+        if (surPlus[item]) {
+          whereData[item] = Like(surPlus[item])
+        }
+      })
+    }
+
     const [employeeList, total] = await this.roleRepositroy.findAndCount({
       where: {
-        name: Like(`%${name || ''}%`),
+        ...whereData
       },
       skip: (currentPage - 1) * pageSize,
       take: pageSize,
