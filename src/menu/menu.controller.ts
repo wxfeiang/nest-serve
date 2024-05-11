@@ -22,7 +22,6 @@ import { MenuService } from './menu.service';
 export class MenuController {
   constructor(private readonly menuService: MenuService) { }
 
-
   @ApiOperation({
     summary: '创建菜单',
   })
@@ -30,10 +29,11 @@ export class MenuController {
   create(@Body() createMenuDto: CreateMenuDto) {
     return this.menuService.create(createMenuDto);
   }
+
   @ApiOperation({
-    summary: '获取菜单',
+    summary: '获取菜单表',
   })
-  @Get()
+  @Get("/list")
   findAll() {
     return this.menuService.findAll();
   }
@@ -62,6 +62,10 @@ export class MenuController {
     return this.menuService.remove(id);
   }
 
+
+  @ApiOperation({
+    summary: '获取菜单树',
+  })
   @Get('tree')
   tree() {
     return this.menuService.tree();

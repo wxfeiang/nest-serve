@@ -33,7 +33,6 @@ export class RoleService {
         }
       })
     }
-
     const [employeeList, total] = await this.roleRepositroy.findAndCount({
       where: {
         ...whereData
