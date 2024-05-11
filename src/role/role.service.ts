@@ -57,9 +57,6 @@ export class RoleService {
   }
 
   async update(role: Role) {
-
-
-
     const arr: RoleMenu[] = [];
     if (role.roleMenu) {
       // 先删除之前的

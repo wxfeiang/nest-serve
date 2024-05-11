@@ -5,7 +5,7 @@ import {
   Get,
   Post,
   Put,
-  Query,
+  Query
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { pageListEntity } from 'src/common/database/pageListEntity';
@@ -58,8 +58,8 @@ export class RoleController {
   @ApiOperation({
     summary: '更新角色--（包含菜单[]）角色分派权限',
   })
-  @Put()
-  update(@Body() role: Role) {
+  @Put("/updateRole")
+  updateRole(@Body() role: Role) {
     return this.roleService.update(role);
   }
 
