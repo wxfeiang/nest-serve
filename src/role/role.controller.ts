@@ -28,6 +28,16 @@ export class RoleController {
   }
 
   @ApiOperation({
+    summary: '更新当前角色数据',
+  })
+  @Put("")
+  update(@Body() role: Role) {
+    return this.roleService.update(role);
+  }
+
+
+
+  @ApiOperation({
     summary: '全部角色列表',
   })
   @Post('list')
@@ -60,7 +70,7 @@ export class RoleController {
   })
   @Put("/updateRole")
   updateRole(@Body() role: Role) {
-    return this.roleService.update(role);
+    return this.roleService.updateRole(role);
   }
 
 

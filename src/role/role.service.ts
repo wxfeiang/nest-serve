@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Like, Repository } from 'typeorm';
-
 import { BasePage } from 'src/common/database/pageInfo';
+import { Like, Repository } from 'typeorm';
+import { classAssign } from '../common/utils/index';
 import { QueryRole } from './dto/query-role.dto';
 import { EmpRole } from './entities/empRole.entity';
 import { Role } from './entities/role.entity';
@@ -17,11 +17,19 @@ export class RoleService {
     @InjectRepository(RoleMenu)
     private readonly RoleMenupositroy: Repository<RoleMenu>,
   ) { }
-
+  /**
+      *
+      * @param role
+      * @returns 查询全部
+      */
   findAll() {
     return this.roleRepositroy.find(); // 提
   }
-
+  /**
+      *
+      * @param role
+      * @returns 查询列表分页
+      */
   async findAllList(role: QueryRole) {
     const { currentPage, pageSize, ...surPlus } = role;
     const arr = Object.keys(surPlus);
@@ -43,9 +51,30 @@ export class RoleService {
     return new BasePage(currentPage, pageSize, total, employeeList);
   }
 
+  /**
+     *
+     * @param role
+     * @returns 创建
+     */
+
   async create(role: Role) {
     return this.roleRepositroy.save(role);
   }
+
+  /**
+     *
+     * @param role
+     * @returns 更新
+     */
+  async update(role: Role) {
+    return !!(
+      await this.roleRepositroy.update(
+        { id: role.id },
+        classAssign(new Role(), role),
+      )
+    ).affected;
+  }
+
   findOne(id: string) {
     return this.roleRepositroy.findOne({
       // select: ['id', 'mId'],
@@ -56,7 +85,12 @@ export class RoleService {
     });
   }
 
-  async update(role: Role) {
+  /**
+     *
+     * @param role
+     * @returns 更新 分派权限
+     */
+  async updateRole(role: Role) {
     const arr: RoleMenu[] = [];
     if (role.roleMenu) {
       // 先删除之前的
@@ -74,7 +108,11 @@ export class RoleService {
     const data = await this.roleRepositroy.save(role);
     return data?.id ? true : false;
   }
-
+  /**
+      *
+      * @param role
+      * @returns 删除
+      */
   remove(id: Role['id']) {
     return this.roleRepositroy.delete({ id });
   }
