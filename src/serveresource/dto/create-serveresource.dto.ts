@@ -11,7 +11,7 @@ export class CreateServeresourceDto {
 
     @ApiProperty({
         description: '类型',
-        example: '1',
+        example: 1,
         enum: ['0:图片', '1:视频', '2:音频', '3:文档', '4:其他'],
 
     })
