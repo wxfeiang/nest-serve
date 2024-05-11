@@ -57,20 +57,25 @@ export class RoleService {
   }
 
   async update(role: Role) {
-    const ids = role.roleMenu;
+
+
+
     const arr: RoleMenu[] = [];
-    if (ids) {
+    if (role.roleMenu) {
       // 先删除之前的
+      const ids = role.roleMenu;
       this.RoleMenupositroy.delete({ rId: role.id });
       for (let i = 0; i < ids.length; i++) {
         const T = new RoleMenu();
+        T.rId = role.id;
         T.mId = ids[i] as unknown as string;
         await this.RoleMenupositroy.save(T);
         arr.push(T);
       }
+      role.roleMenu = arr;
     }
-    role.roleMenu = arr;
-    return this.roleRepositroy.save(role);
+    const data = await this.roleRepositroy.save(role);
+    return data?.id ? true : false;
   }
 
   remove(id: Role['id']) {
