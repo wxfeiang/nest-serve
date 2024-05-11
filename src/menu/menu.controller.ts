@@ -39,14 +39,6 @@ export class MenuController {
   }
 
   @ApiOperation({
-    summary: '根据ID---菜单',
-  })
-  @Get()
-  findOne(@Query('id') id: string) {
-    return this.menuService.findOne(id);
-  }
-
-  @ApiOperation({
     summary: '更新菜单',
   })
   @Patch()
@@ -55,7 +47,7 @@ export class MenuController {
   }
 
   @ApiOperation({
-    summary: '根据ID删除菜单',
+    summary: '菜单ID删除菜单',
   })
   @Delete()
   remove(@Query('id') id: string) {
@@ -63,6 +55,24 @@ export class MenuController {
   }
 
 
+
+  /**
+   * @description: 员工(角色)Id 对应的菜单
+   * @return {}
+   */
+
+  @ApiOperation({
+    summary: '员工(角色)Id对应的菜单',
+  })
+  @Get()
+  findOne(@Query('id') id: string) {
+    return this.menuService.findOne(id);
+  }
+
+  /**
+   * @description: 获取菜单树
+   * @return {}
+   */
   @ApiOperation({
     summary: '获取菜单树',
   })
@@ -76,10 +86,10 @@ export class MenuController {
    * @return {}
    */
   @ApiOperation({
-    summary: '获取角色对应的菜单树',
+    summary: '获取角色Id对应的菜单树',
   })
-  @Get('roleMenu')
-  roleMenu(@Query('id') id: string, @User() user: Employee) {
+  @Get('roleMenuTree')
+  roleMenuTree(@Query('id') id: string, @User() user: Employee) {
     return this.menuService.roleMenu(id || user.role[0].id);
   }
 }

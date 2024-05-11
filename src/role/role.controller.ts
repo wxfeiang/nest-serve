@@ -28,16 +28,8 @@ export class RoleController {
   }
 
   @ApiOperation({
-    summary: '获取全部角色',
+    summary: '全部角色列表',
   })
-  @Get('all')
-  findAll() {
-    return this.roleService.findAll();
-  }
-  @ApiOperation({
-    summary: '获取全部角色列表',
-  })
-
   @Post('list')
   findAllList(@Body() role: QueryRole, @pageInfo() pageInfo: pageListEntity) {
     return this.roleService.findAllList({ ...role, ...pageInfo });
@@ -45,20 +37,13 @@ export class RoleController {
 
 
   @ApiOperation({
-    summary: 'ID查询角色-菜单关系',
+    summary: '获取全部角色',
   })
-  @Get()
-  findOne(@Query('id') id: string) {
-    return this.roleService.findOne(id);
+  @Get('all')
+  findAll() {
+    return this.roleService.findAll();
   }
 
-  @ApiOperation({
-    summary: '更新角色--（包含菜单[]）',
-  })
-  @Put()
-  update(@Body() role: Role) {
-    return this.roleService.update(role);
-  }
 
 
   @ApiOperation({
@@ -71,7 +56,27 @@ export class RoleController {
   }
 
   @ApiOperation({
-    summary: '根据ID查询拥有角色',
+    summary: '更新角色--（包含菜单[]）角色分派权限',
+  })
+  @Put()
+  update(@Body() role: Role) {
+    return this.roleService.update(role);
+  }
+
+
+
+
+  @ApiOperation({
+    summary: 'ID查询角色-权限(包含的菜单)',
+  })
+  @Get("/rolePermissions")
+  findOne(@Query('id') id: string) {
+    return this.roleService.findOne(id);
+  }
+
+
+  @ApiOperation({
+    summary: '员工ID查询拥有角色',
   })
   @Get('getRoles')
   getRoles(@Query('id') id: string) {
