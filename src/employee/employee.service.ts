@@ -44,11 +44,21 @@ export default class EmployeeService {
    * @returns 员工列表
    */
   async list(employee: QueryEmployeeDto) {
-    const { currentPage, pageSize, name } = employee;
+
+    const { currentPage, pageSize, ...surPlus } = employee;
+    const arr = Object.keys(surPlus);
+    const whereData = {}
+    if (arr?.length > 0) {
+      arr.forEach((item) => {
+        if (surPlus[item]) {
+          whereData[item] = Like(surPlus[item])
+        }
+      })
+    }
     const [employeeList, total] = await this.employeeRepository.findAndCount({
       relations: ['organization', 'role'],
       where: {
-        name: Like(`%${name || ""}%`),
+        ...whereData
       },
       skip: (currentPage - 1) * pageSize,
       take: pageSize,

@@ -37,7 +37,7 @@ export class Employee extends BaseEntity {
   })
   @Column({
     comment: '身份证号码',
-    unique: true,
+
   })
   idNumber: string;
 
@@ -48,6 +48,25 @@ export class Employee extends BaseEntity {
     comment: '手机号',
   })
   phone: string;
+
+  @ApiProperty({
+    description: '昵称',
+  })
+  @Column({
+    comment: '昵称',
+  })
+  nickname: string;
+
+  @ApiProperty({
+    description: '邮箱',
+  })
+  @Column({
+    comment: 'email',
+  })
+  email: string;
+
+
+
 
   @ApiProperty({
     description: '账户名称-登陆时的账号',
@@ -86,6 +105,23 @@ export class Employee extends BaseEntity {
     comment: '头像',
   })
   avatar: string;
+
+
+  @ApiProperty({
+    description: '所属部门',
+  })
+  @Column({
+    comment: '部门Id',
+  })
+  pId: string;
+
+  @ApiProperty({
+    description: '所属部门',
+  })
+  @Column({
+    comment: '部门Id',
+  })
+  remark: string;
 
   @OneToMany(() => Organization, (organization) => organization.employee)
   organization: Organization[];
