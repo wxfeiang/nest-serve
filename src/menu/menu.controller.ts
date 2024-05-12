@@ -3,9 +3,9 @@ import {
   Controller,
   Delete,
   Get,
-  Patch,
   Post,
-  Query,
+  Put,
+  Query
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { User } from 'src/common/decorators/user.decorator';
@@ -41,7 +41,7 @@ export class MenuController {
   @ApiOperation({
     summary: '更新菜单',
   })
-  @Patch()
+  @Put()
   update(@Body() updateMenuDto: UpdateMenuDto) {
     return this.menuService.update(updateMenuDto);
   }

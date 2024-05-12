@@ -139,6 +139,31 @@ export class Menu extends BaseEntity {
   })
   dynamicLevel: number;
 
+
+  @ApiProperty({
+    description: '进场动画',
+  })
+  @Column({
+    comment: '进场动画',
+  })
+  enterTransition: string
+
+  @ApiProperty({
+    description: '离场动画',
+  })
+  @Column({
+    comment: '离场动画',
+  })
+  leaveTransition: string
+
+  @ApiProperty({
+    description: '是否固定标签页',
+  })
+  @Column({
+    comment: '是否固定标签页',
+  })
+  fixedTag: string
+
   @ApiProperty({
     description:
       ' 将某个菜单激活（主要用于通过query或params传参的路由，当它们通过配置showLink: false后不在菜单中显示，就不会有任何菜单高亮，而通过设置activePath指定激活菜单即可获得高亮，activePath为指定激活菜单的path）',
