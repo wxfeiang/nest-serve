@@ -2,6 +2,7 @@ import {
   Controller,
   Headers,
   Post,
+  Res,
   Session,
   UploadedFile,
   UseInterceptors,
@@ -15,15 +16,15 @@ import { BaseService } from './base.service';
 @ApiTags('公共模块')
 @Controller('base')
 export class BaseController {
-  constructor(private readonly baseService: BaseService) {}
+  constructor(private readonly baseService: BaseService) { }
 
   @ApiOperation({
     summary: '获取图形验证码',
   })
   @isPublic()
   @Post('/captchaImage')
-  captchaImage(@Session() session) {
-    return this.baseService.captchaImage(session);
+  captchaImage(@Session() session, @Res() res) {
+    return this.baseService.captchaImage(session, res);
   }
 
   @ApiOperation({

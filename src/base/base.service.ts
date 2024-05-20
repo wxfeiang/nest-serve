@@ -4,7 +4,7 @@ import * as svgCaptcha from 'svg-captcha';
 @Injectable()
 export class BaseService {
   // 验证码
-  async captchaImage(session) {
+  async captchaImage(session, res) {
     const captcha = svgCaptcha.create({
       size: 4, //验证码长度
       fontSize: 50,
@@ -17,8 +17,11 @@ export class BaseService {
       code: captcha.text,
       data: captcha.data,
     }
+    res.type('image/svg+xml')
+    res.send(captcha.data)
     // captcha.data
-    return process.env.DATA_SHOW_CODE ? { ...data } : captcha.data; // aptcha.data  返回的是svg图
+    //  return process.env.DATA_SHOW_CODE ? { ...data } : captcha.data; // aptcha.data  返回的是svg图
+
   }
   // 本地上传
   async uploadLocal(file, host) {
