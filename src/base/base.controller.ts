@@ -2,10 +2,9 @@ import {
   Controller,
   Headers,
   Post,
-  Res,
   Session,
   UploadedFile,
-  UseInterceptors,
+  UseInterceptors
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -23,8 +22,8 @@ export class BaseController {
   })
   @isPublic()
   @Post('/captchaImage')
-  captchaImage(@Session() session, @Res() res) {
-    return this.baseService.captchaImage(session, res);
+  captchaImage(@Session() session) {
+    return this.baseService.captchaImage(session,);
   }
 
   @ApiOperation({
