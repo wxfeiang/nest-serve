@@ -14,10 +14,6 @@ export function dyErrorResponse(data: any) {
 }
 
 /**
- * @description: 验证文件后缀，大小
- * @param file  校验
- */
-/**
  * 创建文件夹
  * @param filePath 文件路径
  */
@@ -53,6 +49,7 @@ export function classAssign<T extends object>(oldVal: T, newVal: T): T {
 
   return oldVal;
 }
+
 /**
  *
  * @param data
@@ -87,6 +84,11 @@ export function garbledCode(res: any) {
   return $;
 }
 
+/**
+ * @description:  返回处理后的图片
+ * @param {} imgs
+ * @return {}
+ */
 export function resImgs(imgs: any) {
   const imgArr = [];
   imgs.each((idx) => {

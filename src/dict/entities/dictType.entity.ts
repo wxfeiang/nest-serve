@@ -70,6 +70,7 @@ export class DictType extends BaseEntity {
   })
   @Column({
     comment: '父级ID',
+    unique: true
   })
   dId: string;
 

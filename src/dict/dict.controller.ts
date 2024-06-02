@@ -1,14 +1,15 @@
-import { Body, Controller, Get, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Patch, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { DictService } from './dict.service';
 import { CreateDicTypeDto } from './dto/create-dict-type.dto';
 import { CreateDictDto } from './dto/create-dict.dto';
+import { QueryDict } from './dto/query-dict.dto';
 import { UpdateDictDto } from './dto/update-dict.dto';
 
 @ApiTags('字典管理')
 @Controller('dict')
 export class DictController {
-  constructor(private readonly dictService: DictService) {}
+  constructor(private readonly dictService: DictService) { }
 
   @ApiOperation({
     summary: '创建字典',
@@ -18,20 +19,21 @@ export class DictController {
     return this.dictService.create(createDictDto);
   }
 
+
   @ApiOperation({
-    summary: '查询字典列表',
+    summary: '查询字典列表/分页',
   })
-  @Get()
-  findAll() {
-    return this.dictService.findAll();
+  @Post('list')
+  findAllList(@Body() QueryDict: QueryDict) {
+    return this.dictService.findAllList(QueryDict);
   }
 
   @ApiOperation({
-    summary: 'ID查询字典',
+    summary: '查询字典所有',
   })
-  @Get()
-  findOne(@Query('id') id: string) {
-    return this.dictService.findOne(id);
+  @Get("all")
+  findAll() {
+    return this.dictService.findAll();
   }
 
   @ApiOperation({
@@ -44,7 +46,7 @@ export class DictController {
   @ApiOperation({
     summary: '删除字典',
   })
-  @Get()
+  @Delete()
   remove(@Query('id') id: string) {
     return this.dictService.remove(id);
   }
@@ -71,14 +73,14 @@ export class DictController {
     summary: '查询字典值',
   })
   @Get('getDict')
-  getDict(@Query('type') type: string) {
+  getDict(@Query('id') type: string) {
     return this.dictService.findAllType(type);
   }
 
   @ApiOperation({
     summary: '删除字典值',
   })
-  @Get('delDict')
+  @Delete('delDict')
   delDict(@Query('id') id: string) {
     return this.dictService.delDict(id);
   }

@@ -27,7 +27,6 @@ export class Dict extends BaseEntity {
   })
   @Column({
     comment: '字典描述',
-    unique: true,
   })
   describe: string;
 

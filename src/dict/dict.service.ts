@@ -1,8 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { BasePage } from 'src/common/database/pageInfo';
+import { Like, Repository } from 'typeorm';
 import { CreateDicTypeDto } from './dto/create-dict-type.dto';
 import { CreateDictDto } from './dto/create-dict.dto';
+import { QueryDict } from './dto/query-dict.dto';
 import { UpdateDictDto } from './dto/update-dict.dto';
 import { Dict } from './entities/dict.entity';
 import { DictType } from './entities/dictType.entity';
@@ -14,11 +16,40 @@ export class DictService {
     private readonly Dictpositroy: Repository<Dict>,
     @InjectRepository(DictType)
     private readonly DictTypepositroy: Repository<DictType>,
-  ) {}
+  ) { }
   create(createDictDto: CreateDictDto) {
     // save 有ID更🆕
     return this.Dictpositroy.save(createDictDto);
   }
+
+
+  /**
+      *
+      * @param dict
+      * @returns 查询列表分页
+      */
+  async findAllList(dict: QueryDict) {
+
+    const { currentPage, pageSize, ...surPlus } = dict;
+    const arr = Object.keys(surPlus);
+    const whereData = {}
+    if (arr?.length > 0) {
+      arr.forEach((item) => {
+        if (surPlus[item]) {
+          whereData[item] = Like(`%${surPlus[item]}%`)
+        }
+      })
+    }
+    const [list, total] = await this.Dictpositroy.findAndCount({
+      where: {
+        ...whereData
+      },
+      skip: (currentPage - 1) * pageSize,
+      take: pageSize,
+    });
+    return new BasePage(currentPage, pageSize, total, list);
+  }
+
 
   findAll() {
     return this.Dictpositroy.find();
@@ -44,10 +75,11 @@ export class DictService {
    * @param {} name
    * @return {}
    */
-  findAllType(name: string) {
+  findAllType(id: string) {
     return this.DictTypepositroy.find({
       where: {
-        name,
+        dId: id,
+        status: 1
       },
     });
   }
