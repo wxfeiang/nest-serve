@@ -32,6 +32,7 @@ export class Dict extends BaseEntity {
 
   @ApiProperty({
     description: '字典状态',
+    example: 0,
   })
   @Column({
     comment: '状态 0:禁用，1:正常',
