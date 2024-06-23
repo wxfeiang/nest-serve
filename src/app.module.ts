@@ -31,6 +31,7 @@ import { MenuModule } from './menu/menu.module';
 import { MyresourcesModule } from './myresources/myresources.module';
 import { RoleModule } from './role/role.module';
 import { ServeresourceModule } from './serveresource/serveresource.module';
+import { DymockModule } from './dymock/dymock.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -85,6 +86,7 @@ import { ServeresourceModule } from './serveresource/serveresource.module';
     IndividualtaxesModule,
     EmailModule,
     ServeresourceModule,
+    DymockModule,
   ],
   // controllers: [AppController],
   controllers: [],
