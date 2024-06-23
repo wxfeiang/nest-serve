@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import * as Mock from 'mockjs';
 import { CreateDymockDto } from './dto/create-dymock.dto';
 import { UpdateDymockDto } from './dto/update-dymock.dto';
-var Mock = require('mockjs');//引入mock
 
 
 
@@ -39,11 +39,11 @@ export class DymockService {
     const Random = Mock.Random
 
     const data = Mock.mock({
-      'answer|5-50': [
+      'answer|5-20': [
         {
           'id': "@id",
           'name': '@ctitle( 5, 10 )' + '?',
-          "options|2-5": [
+          "options|4-6": [
             {
               'id': "@id",
               "name": '@ctitle( 5, 30)' + '.',
@@ -63,7 +63,7 @@ export class DymockService {
     data.answer.forEach(item => {
       const l = item.options.length;
       const random = Math.round(Math.random() * (l - 1) + 0);
-      console.log('🍸[random]:', random);
+
       if (item.type === 'checkbox') {
         let arr = item.options.map(item => item.value)
         arr.splice(random, 1)
