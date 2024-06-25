@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import Mock from 'mockjs';
+
 import { CreateDymockDto } from './dto/create-dymock.dto';
 import { UpdateDymockDto } from './dto/update-dymock.dto';
 
-
+var Mock = require('mockjs');//引入mock
 
 @Injectable()
 
