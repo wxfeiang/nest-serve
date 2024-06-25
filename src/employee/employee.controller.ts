@@ -41,17 +41,21 @@ export class EmployeeController {
   @Post('login')
   async login(@Session() session, @Body() employee: LoginEmployeeDto) {
     const { username, password, verifyCode } = employee;
-    // 前端传回来的验证码，转换成小写
-    const ncode = verifyCode.toLowerCase();
-    //get方式获取的验证码定义的
-    const sessionCode = String(session.code).toLowerCase();
+    if (verifyCode) {
 
-    if (sessionCode !== ncode) {
-      session.code = null;
-      throw new CustomException(
-        sessionCode ? '验证码错误' : '验证码过期，请重新获取',
-      );
+      // 前端传回来的验证码，转换成小写
+      const ncode = verifyCode.toLowerCase();
+      //get方式获取的验证码定义的
+      const sessionCode = String(session.code).toLowerCase();
+
+      if (sessionCode !== ncode) {
+        session.code = null;
+        throw new CustomException(
+          sessionCode ? '验证码错误' : '验证码过期，请重新获取',
+        );
+      }
     }
+
 
     // 判断能否通过账号查询出用户信息
     const _employee = await this.employeeService.findByUsername(username);

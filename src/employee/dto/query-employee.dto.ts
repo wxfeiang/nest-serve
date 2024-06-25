@@ -27,7 +27,7 @@ export class LoginEmployeeDto {
     description: '图形验证码',
     example: '',
   })
-  @IsNotEmpty({ message: '图形验证码不能为空' })
+  // @IsNotEmpty({ message: '图形验证码不能为空' })
   verifyCode: string;
 }
 export class assignRolesDto {
