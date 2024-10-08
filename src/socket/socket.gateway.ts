@@ -5,7 +5,6 @@ import {
 } from '@nestjs/websockets';
 import { CreateSocketDto } from './dto/create-socket.dto';
 import { UpdateSocketDto } from './dto/update-socket.dto';
-import { Socket } from './entities/socket.entity';
 import { SocketService } from './socket.service';
 
 @WebSocketGateway(3002, {
@@ -17,7 +16,7 @@ import { SocketService } from './socket.service';
   },
 })
 export class SocketGateway {
-  constructor(private readonly socketService: SocketService) {}
+  constructor(private readonly socketService: SocketService) { }
   msgList: string[] = [];
   @SubscribeMessage('socketTest')
   socketTest(@MessageBody() data: any) {
@@ -32,7 +31,7 @@ export class SocketGateway {
   }
   //接收并处理来自客户端的消息
   @SubscribeMessage('toServer')
-  toServer(client: Socket, data: string) {
+  toServer(client: any, data: string) {
     console.log(data);
     client.emit('toServer', '这是一条发送给客户端的消息');
   }
