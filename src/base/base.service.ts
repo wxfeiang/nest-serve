@@ -4,13 +4,14 @@ import * as svgCaptcha from 'svg-captcha';
 @Injectable()
 export class BaseService {
   // 验证码
-  async captchaImage(session,) {
+  async captchaImage(session, CaptchaImageDto) {
     const captcha = svgCaptcha.create({
       size: 4, //验证码长度
-      fontSize: 50,
+      fontSize: 30,
       width: 120,
       height: 30,
-      background: '#f5f5f5', //背景颜色
+      background: '#fff', //背景颜色
+      ...CaptchaImageDto
     });
     session.code = captcha.text; //session保存验证码
     const buffer = Buffer.from(captcha.data, 'utf-8');

@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Headers,
   Post,
@@ -11,6 +12,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { isPublic } from 'src/auth/constants';
 
 import { BaseService } from './base.service';
+import { CaptchaImageDto } from './dto/create-base.dto';
 
 @ApiTags('公共模块')
 @Controller('base')
@@ -22,8 +24,8 @@ export class BaseController {
   })
   @isPublic()
   @Post('/captchaImage')
-  captchaImage(@Session() session) {
-    return this.baseService.captchaImage(session,);
+  captchaImage(@Session() session, @Body() CaptchaImageDto: CaptchaImageDto) {
+    return this.baseService.captchaImage(session, CaptchaImageDto);
   }
 
   @ApiOperation({
