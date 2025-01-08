@@ -25,11 +25,11 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { DepartmentModule } from './department/department.module';
 import { DictModule } from './dict/dict.module';
+import { DymockModule } from './dymock/dymock.module';
 import { EmailModule } from './email/email.module';
 import { IndividualtaxesModule } from './individualtaxes/individualtaxes.module';
 import { MenuModule } from './menu/menu.module';
-// import { MyresourcesModule } from './myresources/myresources.module';
-import { DymockModule } from './dymock/dymock.module';
+import { MyresourcesModule } from './myresources/myresources.module';
 import { RoleModule } from './role/role.module';
 import { ServeresourceModule } from './serveresource/serveresource.module';
 @Module({
@@ -80,7 +80,7 @@ import { ServeresourceModule } from './serveresource/serveresource.module';
     OrganizationModule,
     DepartmentModule,
     RoleModule,
-    // MyresourcesModule,
+    MyresourcesModule,
     DictModule,
     MenuModule,
     IndividualtaxesModule,
