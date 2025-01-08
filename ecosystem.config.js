@@ -4,7 +4,7 @@ module.exports = {
       name: 'nest-serve',
       script: './dist/src/main.js', // 写本来启动的入口路径就好
       autorestart: true,
-      watch: true,
+      watch: ["serve"],
       ignore_watch: [
         // 不⽤监听的⽂件
         'node_modules',
