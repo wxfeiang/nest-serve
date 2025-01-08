@@ -28,10 +28,10 @@ import { DictModule } from './dict/dict.module';
 import { EmailModule } from './email/email.module';
 import { IndividualtaxesModule } from './individualtaxes/individualtaxes.module';
 import { MenuModule } from './menu/menu.module';
-import { MyresourcesModule } from './myresources/myresources.module';
+// import { MyresourcesModule } from './myresources/myresources.module';
+import { DymockModule } from './dymock/dymock.module';
 import { RoleModule } from './role/role.module';
 import { ServeresourceModule } from './serveresource/serveresource.module';
-import { DymockModule } from './dymock/dymock.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -80,7 +80,7 @@ import { DymockModule } from './dymock/dymock.module';
     OrganizationModule,
     DepartmentModule,
     RoleModule,
-    MyresourcesModule,
+    // MyresourcesModule,
     DictModule,
     MenuModule,
     IndividualtaxesModule,
