@@ -32,6 +32,7 @@ import { MenuModule } from './menu/menu.module';
 import { MyresourcesModule } from './myresources/myresources.module';
 import { RoleModule } from './role/role.module';
 import { ServeresourceModule } from './serveresource/serveresource.module';
+import { DataServeModule } from './data-serve/data-serve.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -87,6 +88,7 @@ import { ServeresourceModule } from './serveresource/serveresource.module';
     EmailModule,
     ServeresourceModule,
     DymockModule,
+    DataServeModule,
   ],
   // controllers: [AppController],
   controllers: [],
